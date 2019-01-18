@@ -1,11 +1,16 @@
 import * as functions from 'firebase-functions';
+import * as admin from 'firebase-admin';
+
 import { WebhookClient } from 'dialogflow-fulfillment';
 
-import { welcome } from './handlers/welcome.handler';
-import { fallback } from './handlers/fallback.handler';
-import { yourFunction } from './handlers/test.handler';
+import { welcome, fallback, yourFunction  } from './handlers/silly';
+import { getCourse, getCourseInfo, getCourseRequirements, getCourseWorkload, getCourseTeacher, getCourseSchedule, getCourseCredit, getCourseFromScheduleDay, getCourseFromScheduleDayHour, fallbackGetCourseId2 } from './jupiter/info'
+import { getCourseSuggestion, getCourseSuggestionBefore, getCourseSuggestionAfter, getCourseSuggestionBetween, getCourseSuggestionDays } from './jupiter/suggestion' 
 
 process.env.DEBUG = 'dialogflow:debug';
+
+admin.initializeApp(functions.config().firebase);
+const db = admin.firestore();
 
 /**
  * @function helloWorld
@@ -23,12 +28,31 @@ export const dialogflowFirebaseFulfillment = functions.https.onRequest((request,
     const agent = new WebhookClient({ request, response });
     console.log('Dialogflow Request headers: ' + JSON.stringify(request.headers));
     console.log('Dialogflow Request body: ' + JSON.stringify(request.body));
-   
-  
+
     // Run the proper function handler based on the matched Dialogflow intent name
     const intentMap = new Map();
-    intentMap.set('Default Welcome Intent', welcome);
-    intentMap.set('Default Fallback Intent', fallback);
-    intentMap.set('Default Test Intent', yourFunction);
+
+    // Test intents
+    intentMap.set('Welcome', welcome);
+    intentMap.set('Fallback', fallback);
+    intentMap.set('Test', yourFunction);
+
+    // Jupiter intents
+    intentMap.set('fallbackGetCourseId2', fallbackGetCourseId2);
+    intentMap.set('getCourse', getCourse);
+    intentMap.set('GetCourseInfo', getCourseInfo); //ok
+    intentMap.set('GetCourseRequirements', getCourseRequirements); //ok
+    intentMap.set('GetCourseWorkload', getCourseWorkload); //ok
+    intentMap.set('GetCourseTeacher', getCourseTeacher); //ok
+    intentMap.set('GetCourseSchedule', getCourseSchedule); //ok
+    intentMap.set('GetCourseCredit', getCourseCredit); //ok
+    intentMap.set('getCourseFromScheduleDay', getCourseFromScheduleDay);
+    intentMap.set('getCourseFromScheduleDayHour', getCourseFromScheduleDayHour);
+    intentMap.set('getCourseSuggestion', getCourseSuggestion);
+    intentMap.set('getCourseSuggestionBefore', getCourseSuggestionBefore);
+    intentMap.set('getCourseSuggestionAfter', getCourseSuggestionAfter);
+    intentMap.set('getCourseSuggestionBetween', getCourseSuggestionBetween);
+    intentMap.set('getCourseSuggestionDays', getCourseSuggestionDays);
+
     agent.handleRequest(intentMap);
 });

@@ -1,0 +1,13 @@
+{
+  "name": "scripts",
+  "version": "1.0.0",
+  "description": "Contigency scripts",
+  "main": "firestore.manual_fill.js",
+  "scripts": {
+    "manual:fill": "node firestore.manual.js"
+  },
+  "author": "gustapp",
+  "dependencies": {
+    "firebase": "^5.7.3"
+  }
+}
