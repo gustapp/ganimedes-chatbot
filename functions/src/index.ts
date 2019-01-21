@@ -2,15 +2,14 @@ import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 
 import { WebhookClient } from 'dialogflow-fulfillment';
-
-import { welcome, fallback, yourFunction  } from './handlers/silly';
-import { getCourse, getCourseInfo, getCourseRequirements, getCourseWorkload, getCourseTeacher, getCourseSchedule, getCourseCredit, getCourseFromScheduleDay, getCourseFromScheduleDayHour, fallbackGetCourseId2 } from './jupiter/info'
-import { getCourseSuggestion, getCourseSuggestionBefore, getCourseSuggestionAfter, getCourseSuggestionBetween, getCourseSuggestionDays } from './jupiter/suggestion' 
+import { HandlerFacade } from './handler-facade';
 
 process.env.DEBUG = 'dialogflow:debug';
 
 admin.initializeApp(functions.config().firebase);
 const db = admin.firestore();
+
+const facade = new HandlerFacade(db);
 
 /**
  * @function helloWorld
@@ -33,7 +32,7 @@ export const dialogflowFirebaseFulfillment = functions.https.onRequest((request,
     const intentMap = new Map();
 
     // Test intents
-    intentMap.set('Welcome', welcome);
+    intentMap.set('Welcome', facade.welcome);
     intentMap.set('Fallback', fallback);
     intentMap.set('Test', yourFunction);
 
