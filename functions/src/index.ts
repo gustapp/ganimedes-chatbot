@@ -7,9 +7,6 @@ import { HandlerFacade } from './handler-facade';
 process.env.DEBUG = 'dialogflow:debug';
 
 admin.initializeApp(functions.config().firebase);
-const db = admin.firestore();
-
-const facade = new HandlerFacade(db);
 
 /**
  * @function helloWorld
@@ -28,30 +25,37 @@ export const dialogflowFirebaseFulfillment = functions.https.onRequest((request,
     console.log('Dialogflow Request headers: ' + JSON.stringify(request.headers));
     console.log('Dialogflow Request body: ' + JSON.stringify(request.body));
 
+    // Retrieve firestore
+    const db = admin.firestore();
+    // const settings = { timestampsInSnapshots: true };
+    // db.settings(settings);
+
+    const facade = new HandlerFacade(db);
+
     // Run the proper function handler based on the matched Dialogflow intent name
     const intentMap = new Map();
 
     // Test intents
     intentMap.set('Welcome', facade.welcome);
-    intentMap.set('Fallback', fallback);
-    intentMap.set('Test', yourFunction);
+    intentMap.set('Fallback', facade.fallback);
+    intentMap.set('Test', facade.yourFunction);
 
     // Jupiter intents
-    intentMap.set('fallbackGetCourseId2', fallbackGetCourseId2);
-    intentMap.set('getCourse', getCourse);
-    intentMap.set('GetCourseInfo', getCourseInfo); //ok
-    intentMap.set('GetCourseRequirements', getCourseRequirements); //ok
-    intentMap.set('GetCourseWorkload', getCourseWorkload); //ok
-    intentMap.set('GetCourseTeacher', getCourseTeacher); //ok
-    intentMap.set('GetCourseSchedule', getCourseSchedule); //ok
-    intentMap.set('GetCourseCredit', getCourseCredit); //ok
-    intentMap.set('getCourseFromScheduleDay', getCourseFromScheduleDay);
-    intentMap.set('getCourseFromScheduleDayHour', getCourseFromScheduleDayHour);
-    intentMap.set('getCourseSuggestion', getCourseSuggestion);
-    intentMap.set('getCourseSuggestionBefore', getCourseSuggestionBefore);
-    intentMap.set('getCourseSuggestionAfter', getCourseSuggestionAfter);
-    intentMap.set('getCourseSuggestionBetween', getCourseSuggestionBetween);
-    intentMap.set('getCourseSuggestionDays', getCourseSuggestionDays);
+    intentMap.set('fallbackGetCourseId2', facade.fallbackGetCourseId2);
+    intentMap.set('getCourse', (client) => facade.getCourse(client));
+    intentMap.set('GetCourseInfo', (client) => facade.getCourseInfo(client)); //ok
+    intentMap.set('GetCourseRequirements', (client) => facade.getCourseRequirements(client)); //ok
+    intentMap.set('GetCourseWorkload', (client) => facade.getCourseWorkload(client)); //ok
+    intentMap.set('GetCourseTeacher', (client) => facade.getCourseTeacher(client)); //ok
+    intentMap.set('GetCourseSchedule', (client) => facade.getCourseSchedule(client)); //ok
+    intentMap.set('GetCourseCredit', (client) => facade.getCourseCredit(client)); //ok
+    intentMap.set('getCourseFromScheduleDay', facade.getCourseFromScheduleDay);
+    intentMap.set('getCourseFromScheduleDayHour', facade.getCourseFromScheduleDayHour);
+    intentMap.set('getCourseSuggestion', facade.getCourseSuggestion);
+    intentMap.set('getCourseSuggestionBefore', facade.getCourseSuggestionBefore);
+    intentMap.set('getCourseSuggestionAfter', facade.getCourseSuggestionAfter);
+    intentMap.set('getCourseSuggestionBetween', facade.getCourseSuggestionBetween);
+    intentMap.set('getCourseSuggestionDays', facade.getCourseSuggestionDays);
 
     agent.handleRequest(intentMap);
 });

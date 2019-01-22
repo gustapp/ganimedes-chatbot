@@ -4,7 +4,7 @@ import { IAvaliacao as Avaliacao } from './avaliacao';
 import { IRequisito as Requisito } from './requisito';
 import { IOferecimento as Oferecimento } from './oferecimento';
 
-interface ICurso {
+export interface ICurso {
     sigla: String,
     name: String,
     creditos: Credito,

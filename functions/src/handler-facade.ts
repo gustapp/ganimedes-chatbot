@@ -1,18 +1,20 @@
 import { WebhookClient, Card, Suggestion } from 'dialogflow-fulfillment';
-import { EntityFactory } from './entity-factory';
+import { CursoInfo } from './model/curso-info';
 /**
  * @class
  * Facade for all handlers
  */
 export class HandlerFacade {
 
-    private entityFactory: EntityFactory;
+    // private refFactory: ReferenceFactory;
+    private cursoInfo: CursoInfo;
     /**
      * @constructor
      * @param db firestore manager
      */
     constructor(db: FirebaseFirestore.Firestore){
-        this.entityFactory = new EntityFactory(db);
+        // this.refFactory = new ReferenceFactory(db);
+        this.cursoInfo = new CursoInfo(db);
     }
     /**
      * @function welcome
@@ -52,104 +54,104 @@ export class HandlerFacade {
      * @param agent 
      */
     public getCourse(agent: WebhookClient) {
-        
+        return this.cursoInfo.getCourse(agent);
     }
     /**
      * @function getCourseInfo
      * @param agent
      */
     public getCourseInfo(agent: WebhookClient) {
-
+        return this.cursoInfo.getCourseInfo(agent);
     }
     /**
      * @function getCourseRequirements
      * @param agent 
      */
     public getCourseRequirements(agent: WebhookClient) {
-        
+        return this.cursoInfo.getCourseRequirements(agent);
     }
     /**
      * @function getCourseWorkload
      * @param agent
      */
     public getCourseWorkload(agent: WebhookClient) {
-        
+        return this.cursoInfo.getCourseWorkload(agent);
     }
     /**
      * @function getCourseTeacher
      * @param agent
      */
     public getCourseTeacher(agent: WebhookClient) {
-        
+        return this.cursoInfo.getCourseTeacher(agent);
     }
     /**
      * @function getCourseSchedule
      * @param agent
      */
     public getCourseSchedule(agent: WebhookClient) {
-        
+        return this.cursoInfo.getCourseSchedule(agent);
     }
     /**
      * @function getCourseCredit
      * @param agent
      */
     public getCourseCredit(agent: WebhookClient) {
-        
+        return this.cursoInfo.getCourseCredit(agent);
     }
     /**
      * @function getCourseFromScheduleDay
      * @param agent
      */
     public getCourseFromScheduleDay(agent: WebhookClient) {
-        
+        this.cursoInfo.getCourseFromScheduleDay(agent);
     }
     /**
      * @function getCourseFromScheduleDayHour
      * @param agent
      */
     public getCourseFromScheduleDayHour(agent: WebhookClient) {
-        
+        this.cursoInfo.getCourseFromScheduleDayHour(agent);
     }
     /**
      * @function fallbackGetCourseId2
      * @param agent
      */
     public fallbackGetCourseId2(agent: WebhookClient) {
-        
+        this.cursoInfo.fallbackGetCourseId2(agent);
     }
     /**
      * @function getCourseSuggestion
      * @param agent
      */
     public getCourseSuggestion(agent: WebhookClient) {
-        
+        agent.add(`getCourseSuggestion 🔥`);
     }
     /**
      * @function getCourseSuggestionBefore
      * @param agent
      */
     public getCourseSuggestionBefore(agent: WebhookClient) {
-        
+        agent.add(`getCourseSuggestionBefore 🔥`);
     }
     /**
      * @function getCourseSuggestionAfter
      * @param agent
      */
     public getCourseSuggestionAfter(agent: WebhookClient) {
-        
+        agent.add(`getCourseSuggestionAfter 🔥`);
     }
     /**
      * @function getCourseSuggestionBetween
      * @param agent
      */
     public getCourseSuggestionBetween(agent: WebhookClient) {
-        
+        agent.add(`getCourseSuggestionBetween 🔥`);
     }
     /**
      * @function getCourseSuggestionDays
      * @param agent
      */
     public getCourseSuggestionDays(agent: WebhookClient) {
-        
+        agent.add(`getCourseSuggestionDays 🔥`);
     }
 }
