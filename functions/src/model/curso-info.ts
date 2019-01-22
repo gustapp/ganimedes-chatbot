@@ -114,7 +114,7 @@ export class CursoInfo {
             if (doc.exists) {
                 const result = doc.data();
                 if(result.oferecimento.length > 0){
-                    const schedule_list = result[0].oferecimento;
+                    const schedule_list = result.oferecimento;
                     let answer = "";
 
                     schedule_list.forEach(schedule => {

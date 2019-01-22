@@ -1,0 +1,42 @@
+{
+    "responseId": "e5bfb4be-072e-44de-a7fc-6e4ae82a8976",
+    "queryResult": {
+      "queryText": "qual o professor de MAT3458?",
+      "action": "getCourseTeacher",
+      "parameters": {
+        "Course": "MAT3458"
+      },
+      "allRequiredParamsPresent": true,
+      "fulfillmentMessages": [
+        {
+          "text": {
+            "text": [
+              ""
+            ]
+          }
+        }
+      ],
+      "outputContexts": [
+        {
+          "name": "projects/ganimedes-d9ecd/agent/sessions/004512c8-63b0-1b8b-f399-3bba29758bc5/contexts/course",
+          "lifespanCount": 5,
+          "parameters": {
+            "TimeRange": "",
+            "TimeRange.original": "",
+            "Course": "MAT3458",
+            "Course.original": "MAT3458?"
+          }
+        }
+      ],
+      "intent": {
+        "name": "projects/ganimedes-d9ecd/agent/intents/ba4ba0c2-f63f-40b1-8c99-36df1d062430",
+        "displayName": "GetCourseTeacher"
+      },
+      "intentDetectionConfidence": 1,
+      "languageCode": "pt-br"
+    },
+    "originalDetectIntentRequest": {
+      "payload": {}
+    },
+    "session": "projects/ganimedes-d9ecd/agent/sessions/004512c8-63b0-1b8b-f399-3bba29758bc5"
+}

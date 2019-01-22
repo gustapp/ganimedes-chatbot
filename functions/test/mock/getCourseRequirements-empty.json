@@ -1,0 +1,43 @@
+{
+    "responseId": "5248f8e4-df19-47a6-b071-c21311d7a510",
+    "queryResult": {
+      "queryText": "Quais os requisitos de MAT3458?",
+      "action": "getCourseRequirements",
+      "parameters": {
+        "Course": "MAT3458",
+        "TimeRange": ""
+      },
+      "allRequiredParamsPresent": true,
+      "fulfillmentMessages": [
+        {
+          "text": {
+            "text": [
+              ""
+            ]
+          }
+        }
+      ],
+      "outputContexts": [
+        {
+          "name": "projects/ganimedes-d9ecd/agent/sessions/004512c8-63b0-1b8b-f399-3bba29758bc5/contexts/course",
+          "lifespanCount": 5,
+          "parameters": {
+            "TimeRange": "",
+            "TimeRange.original": "",
+            "Course": "MAT3458",
+            "Course.original": "MAT3458?"
+          }
+        }
+      ],
+      "intent": {
+        "name": "projects/ganimedes-d9ecd/agent/intents/82388cf2-e6dc-47fe-8496-35db01b077a6",
+        "displayName": "GetCourseRequirements"
+      },
+      "intentDetectionConfidence": 1,
+      "languageCode": "pt-br"
+    },
+    "originalDetectIntentRequest": {
+      "payload": {}
+    },
+    "session": "projects/ganimedes-d9ecd/agent/sessions/004512c8-63b0-1b8b-f399-3bba29758bc5"
+}
