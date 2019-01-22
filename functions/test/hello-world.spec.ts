@@ -4,34 +4,18 @@ import {} from "ts-jest";
 import * as chai from "chai";
 const expect = chai.expect;
 
-import * as sinon from "ts-sinon";
-const stubObject = sinon.stubObject;
+import * as request from 'supertest';
 
-interface Test {
-    method(): string;
-}
+const url = 'http://localhost:8010/ganimedes-d9ecd/us-central1';
 
-describe("HelloWorld function", ()=> {
+describe("GET /helloWorld - ping function endpoint", ()=> {
 
-    it("Should return message `Hello, let's chat!`", () => {
+    it("Should return greeting: `Hello! Lets chat!`", () => {
 
-        const req = {
-            body: {},
-            get: ''
-        };
-
-        const res = { 
-            send: {
-                calledOnce: false,
-                firstCall: {
-                    args: ''
-                }
-            } 
-        };
-
-        helloWorld(req, res);
-
-        expect(res.send.calledOnce).to.equal(true);
-        expect(res.send.firstCall.args).to.be(`Hello, let's chat!`);
+        return request(url).get('/helloWorld')
+            .expect(200)
+            .expect(response => {
+                expect(response.text).to.be.equal(`Hello! Lets chat!`);
+        });
     });
-})
+});
