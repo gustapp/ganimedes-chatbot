@@ -2,10 +2,19 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Node.JS (local)",
+            "name": "Cloud functions debug",
             "type": "node",
             "request": "attach",
             "port": 9229
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Run script",
+            "program": "${workspaceFolder}/scripts/firestore.manual_fill.js",
+            "outFiles": [
+                "${workspaceFolder}/**/*.js"
+            ]
         }
     ]
 }

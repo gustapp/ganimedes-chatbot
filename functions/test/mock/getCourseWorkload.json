@@ -1,0 +1,42 @@
+{
+    "responseId": "087a4f44-820a-4cd4-8a78-a5fa2d0805d3",
+    "queryResult": {
+      "queryText": "qual a carga de MAT3458?",
+      "action": "getCourseWorkload",
+      "parameters": {
+        "Course": "MAT3458"
+      },
+      "allRequiredParamsPresent": true,
+      "fulfillmentMessages": [
+        {
+          "text": {
+            "text": [
+              ""
+            ]
+          }
+        }
+      ],
+      "outputContexts": [
+        {
+          "name": "projects/ganimedes-d9ecd/agent/sessions/004512c8-63b0-1b8b-f399-3bba29758bc5/contexts/course",
+          "lifespanCount": 5,
+          "parameters": {
+            "TimeRange": "",
+            "TimeRange.original": "",
+            "Course": "MAT3458",
+            "Course.original": "MAT3458?"
+          }
+        }
+      ],
+      "intent": {
+        "name": "projects/ganimedes-d9ecd/agent/intents/f3b5b93d-6ce9-4810-9e68-7f8cdbcd82ca",
+        "displayName": "GetCourseWorkload"
+      },
+      "intentDetectionConfidence": 1,
+      "languageCode": "pt-br"
+    },
+    "originalDetectIntentRequest": {
+      "payload": {}
+    },
+    "session": "projects/ganimedes-d9ecd/agent/sessions/004512c8-63b0-1b8b-f399-3bba29758bc5"
+}

@@ -1,0 +1,40 @@
+{
+    "responseId": "3370475d-237e-42b3-bd17-8ca6be3062ea",
+    "queryResult": {
+      "queryText": "MAT3458 tem quantos creditos?",
+      "action": "getCourseCredit",
+      "parameters": {
+        "Course": "MAT3458"
+      },
+      "allRequiredParamsPresent": true,
+      "fulfillmentMessages": [
+        {
+          "text": {
+            "text": [
+              ""
+            ]
+          }
+        }
+      ],
+      "outputContexts": [
+        {
+          "name": "projects/ganimedes-d9ecd/agent/sessions/004512c8-63b0-1b8b-f399-3bba29758bc5/contexts/course",
+          "lifespanCount": 5,
+          "parameters": {
+            "Course": "MAT3458",
+            "Course.original": "MAT3458"
+          }
+        }
+      ],
+      "intent": {
+        "name": "projects/ganimedes-d9ecd/agent/intents/180d94e2-e848-4dfb-a111-1e2ffe830db9",
+        "displayName": "GetCourseCredit"
+      },
+      "intentDetectionConfidence": 1,
+      "languageCode": "pt-br"
+    },
+    "originalDetectIntentRequest": {
+      "payload": {}
+    },
+    "session": "projects/ganimedes-d9ecd/agent/sessions/004512c8-63b0-1b8b-f399-3bba29758bc5"
+}

@@ -49,13 +49,9 @@ export const dialogflowFirebaseFulfillment = functions.https.onRequest((request,
     intentMap.set('GetCourseTeacher', (client) => facade.getCourseTeacher(client)); //ok
     intentMap.set('GetCourseSchedule', (client) => facade.getCourseSchedule(client)); //ok
     intentMap.set('GetCourseCredit', (client) => facade.getCourseCredit(client)); //ok
-    intentMap.set('getCourseFromScheduleDay', facade.getCourseFromScheduleDay);
-    intentMap.set('getCourseFromScheduleDayHour', facade.getCourseFromScheduleDayHour);
-    intentMap.set('getCourseSuggestion', facade.getCourseSuggestion);
-    intentMap.set('getCourseSuggestionBefore', facade.getCourseSuggestionBefore);
-    intentMap.set('getCourseSuggestionAfter', facade.getCourseSuggestionAfter);
-    intentMap.set('getCourseSuggestionBetween', facade.getCourseSuggestionBetween);
-    intentMap.set('getCourseSuggestionDays', facade.getCourseSuggestionDays);
+    intentMap.set('getCourseFromScheduleDay', facade.getCourseFromScheduleDay); //not implemented
+    intentMap.set('getCourseFromScheduleDayHour', facade.getCourseFromScheduleDayHour); //not implemented
+    intentMap.set('GetCourseSuggestion', facade.getCourseSuggestion);
 
     agent.handleRequest(intentMap);
 });
