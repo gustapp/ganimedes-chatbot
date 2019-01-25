@@ -1,0 +1,42 @@
+{
+    "responseId": "df1f08a4-65b3-4f57-ad97-a4bdad277207",
+    "queryResult": {
+      "queryText": "não",
+      "parameters": {
+        "theme": "não",
+        "teachers": [
+          "Indiferente"
+        ],
+        "weekdays": [
+          "indiferente"
+        ],
+        "time-periods": {
+          "startTime": "2019-01-22T12:00:00-02:00",
+          "endTime": "2019-01-22T16:00:00-02:00"
+        },
+        "suggestion-number": "1",
+        "time-period": "",
+        "suggestionNumber": "1"
+      },
+      "allRequiredParamsPresent": true,
+      "fulfillmentMessages": [
+        {
+          "text": {
+            "text": [
+              ""
+            ]
+          }
+        }
+      ],
+      "intent": {
+        "name": "projects/ganimedes-d9ecd/agent/intents/c33bbe34-99ed-4102-9f4d-41a27ad95ece",
+        "displayName": "GetCourseSuggestion"
+      },
+      "intentDetectionConfidence": 1,
+      "languageCode": "pt-br"
+    },
+    "originalDetectIntentRequest": {
+      "payload": {}
+    },
+    "session": "projects/ganimedes-d9ecd/agent/sessions/004512c8-63b0-1b8b-f399-3bba29758bc5"
+}

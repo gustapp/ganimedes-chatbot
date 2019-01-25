@@ -1,4 +1,4 @@
-export { ICurso } from './curso';
+export { Curso } from './curso';
 export { IDocente } from './docente';
 export { ICredito } from './credito';
 export { IRequisito } from './requisito';
