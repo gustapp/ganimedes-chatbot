@@ -1,9 +1,11 @@
-import { DataAccessBase } from "./data-access-base";
+import { Repository } from "./repository";
 import { ClassProxy } from "../model/business-class";
 
-export class DataAccessClasses extends DataAccessBase<ClassProxy> {
+export class ClasseRepository extends Repository<ClassProxy> {
 
-    protected collectionId = 'cursos';
+    constructor(db: FirebaseFirestore.Firestore){
+        super(db, 'oferecimentos');
+    }
 
     protected map(data: FirebaseFirestore.DocumentData) : ClassProxy {
         return new ClassProxy(data.codigo_turma, data.tipo_turma);

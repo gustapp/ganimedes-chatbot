@@ -1,7 +1,10 @@
+import { ScheduleRepository } from "../data-access/schedule-repository";
+import { RepositoryFactory } from "../data-access/repository-factory";
+
 interface IClass {
     code: String;
     type: String;
-    getSchedules(): Schedule[];
+    getSchedules(): Schedule[] | any;
 }
 
 export class Class implements IClass {
@@ -18,10 +21,16 @@ export class ClassProxy implements IClass {
 
     constructor(readonly code: string, readonly type: string){}
 
-    public getSchedules(): Schedule[] {
+    public async getSchedules() {
         if(!this.class){
-            // let daSchedules = new DataAccessSchedules()
-            // this.class = 
+            let repoFactory = RepositoryFactory.getInstance();
+
+            let daSchedules = repoFactory
+                .create(ScheduleRepository);
+
+            let schedules = await daSchedules.get();
+
+            return schedules;
         }
 
         return this.class.getSchedules();
