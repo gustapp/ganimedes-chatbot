@@ -2,6 +2,13 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Python: Terminal (integrated)",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal"
+        },
+        {
             "name": "Cloud functions debug",
             "type": "node",
             "request": "attach",
@@ -11,7 +18,7 @@
             "type": "node",
             "request": "launch",
             "name": "Run script",
-            "program": "${workspaceFolder}/scripts/firestore.manual_fill.js",
+            "program": "${workspaceFolder}/scripts/firestore.export_csv.js",
             "outFiles": [
                 "${workspaceFolder}/**/*.js"
             ]
