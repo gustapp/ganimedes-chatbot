@@ -1,3 +1,8 @@
+import { RepositoryFactory } from "../data-access/repository-factory";
+import { ClassRepository } from "../data-access/class-repository";
+import { Reference } from './reference';
+import { ClassProxy } from "./class";
+
 interface Assessment {
     metodo: String,
     criterio: String,
@@ -38,19 +43,26 @@ interface ICourse {
     assessment: Assessment;
     bibliograph: string[];
     requirements: Requirement[];
-    getClasses() : Class[];
+    getClasses() : any;
 }
 
-export class CourseProxy implements ICourse {
+export class CourseProxy extends Reference implements ICourse {
     private course: ICourse;
 
-    constructor(readonly initials: string, readonly name: string, readonly objectives: string, readonly teachers: string[], readonly abstract: string, 
-        readonly syllabus: string, readonly assessment: Assessment, readonly bibliograph: string[], readonly workload: number, readonly credits: Credits, readonly requirements: Requirement[]){}
+    constructor(docRef: FirebaseFirestore.DocumentReference, readonly initials: string, readonly name: string, readonly objectives: string, readonly teachers: string[], readonly abstract: string, 
+            readonly syllabus: string, readonly assessment: Assessment, readonly bibliograph: string[], readonly workload: number, readonly credits: Credits, readonly requirements: Requirement[]){
+        super(docRef);
+    }
 
-    public getClasses() : Class[] {
-        // if (!this.course) {
-        //     course = .getPessoaByID(this.id);
-        // }
+    public async getClasses(): Promise<ClassProxy[]>{
+        if (!this.course) {
+            let daClass = this.daHelper
+                .create(ClassRepository);
+
+            let classes = await daClass.getColl();
+
+            return classes;
+        }
         return this.course.getClasses();
     }
 }
