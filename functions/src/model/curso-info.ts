@@ -1,103 +1,118 @@
 import { WebhookClient } from 'dialogflow-fulfillment';
-import { DataAccessHelper } from '../dao/data-access-base';
+import { RepositoryFactory } from '../data-access/repository-factory';
+import { CourseRepository } from '../data-access/course-repository';
+// import { ClassRepository  } from '../data-access/class-repository'
+// import { ScheduleRepository } from '../data-access/schedule-repository'
 
 export class CursoInfo {
 
-    constructor(private db: FirebaseFirestore.Firestore){};
+    private repoFactory: RepositoryFactory;
+
+    constructor(db: FirebaseFirestore.Firestore){
+        this.repoFactory = new RepositoryFactory(db);
+    };
 
     /**
      * @function getCourse
      * @param agent 
      */
-    public getCourse(agent: WebhookClient) {
-        const course = agent.parameters.Course;
+    public async getCourse(agent: WebhookClient) {
+        try {
+            const courseId = agent.parameters.Course;
+            let courseRepo = this.repoFactory.create(CourseRepository);
 
-        let dbHelper = new DataAccessHelper(this.db.collection('cursos'));
-        return dbHelper.doc(course).then(doc => {
-            if(doc){
+            let course = await courseRepo.get(courseId);
+
+            if(course){
                 agent.add("O que você gostaria de saber sobre essa disciplina? Talvez a descrição da disciplina, ou os horários?");
             }
             else {
                 agent.add("Desculpe, não encontrei a disciplina.");
-            }
-        })
-        .catch(error => {
+            }            
+        } catch (error) {
             agent.add("Desculpe, houve um erro na aplicação. Tente novamente");
-        });
+        }
     }
     /**
      * @function getCourseInfo
      * @param agent
      */
-    public getCourseInfo(agent: WebhookClient) {
-        const course = agent.parameters.Course;
-        let dbHelper = new DataAccessHelper(this.db.collection('cursos'));
+    public async getCourseInfo(agent: WebhookClient) {
+        try {
+            const courseId = agent.parameters.Course;
+            let courseRepo = this.repoFactory.create(CourseRepository);
 
-        return dbHelper.doc(course).then(result => {
+            let result = await courseRepo.get(courseId);
+
             if(result){
-                agent.add(`A disciplina ${course} - ${result.name} possui a seguinte descrição: ${result.objetivos}`);
+                agent.add(`A disciplina ${courseId} - ${result.name} possui a seguinte descrição: ${result.objectives}`);
             }
             else {
                 agent.add("Desculpe, não encontrei a disciplina.");
             }
-        })
-        .catch(error => {
+        } catch (error) {
             agent.add("Desculpe, houve um erro na aplicação. Tente novamente");
-        });
+        }
     }
     /**
      * @function getCourseRequirements
      * @param agent 
      */
-    public getCourseRequirements(agent: WebhookClient) {
-        const course = agent.parameters.Course;
+    public async getCourseRequirements(agent: WebhookClient) {
+        try {
+            const courseId = agent.parameters.Course;
+            let courseRepo = this.repoFactory.create(CourseRepository);
 
-        let dbHelper = new DataAccessHelper(this.db.collection('cursos'));
-        return dbHelper.doc(course).then(result => {
+            let result = await courseRepo.get(courseId);
+
             if (result) {
-                if(result.requisitos.length > 0){
-                    agent.add(`A disciplina possui os seguintes requisitos: ${result.requisitos.join(',')}`);
+                if(result.requirements.length > 0){
+                    agent.add(`A disciplina possui os seguintes requisitos: ${result.requirements.join(',')}`);
                 }
                 else {
                     agent.add("A disciplina não possui requisitos!")
                 }
             } else {
                 agent.add("Desculpe, não encontrei a disciplina.");
-            }
-        }).catch(error => {
+            }            
+        } catch (error) {
             agent.add("Desculpe, houve um erro na aplicação. Tente novamente");
-        });
+        }
     }
     /**
      * @function getCourseWorkload
      * @param agent
      */
-    public getCourseWorkload(agent: WebhookClient) {
-        const course = agent.parameters.Course;
+    public async getCourseWorkload(agent: WebhookClient) {
+        try {
+            const courseId = agent.parameters.Course;
+            let courseRepo = this.repoFactory.create(CourseRepository);
 
-        let dbHelper = new DataAccessHelper(this.db.collection('cursos'));
-        return dbHelper.doc(course).then(result => {
+            let result = await courseRepo.get(courseId);
+
             if (result) {
-                agent.add(`A disciplina possui ${result.carga_horaria} horas por semestre!`);
+                agent.add(`A disciplina possui ${result.workload} horas por semestre!`);
             } else {
                 agent.add("Desculpe, não encontrei a disciplina.");
             }
-        }).catch(error => {
+        } catch (error) {
             agent.add("Desculpe, houve um erro na aplicação. Tente novamente");
-        });
+        }
     }
     /**
      * @function getCourseTeacher
      * @param agent
      */
-    public getCourseTeacher(agent: WebhookClient) {
-        const course = agent.parameters.Course;
+    public async getCourseTeacher(agent: WebhookClient) {
+        try {
+            const courseId = agent.parameters.Course;
+            let courseRepo = this.repoFactory.create(CourseRepository);
 
-        let dbHelper = new DataAccessHelper(this.db.collection('cursos'));
-        return dbHelper.doc(course).then(result => {
+            let result = await courseRepo.get(courseId);
+
             if (result) {
-                if(result.docentes.length > 0){
-                    agent.add(`A disciplina possui os seguintes professores: ${result.docentes.join(',')}`);
+                if(result.teachers.length > 0){
+                    agent.add(`A disciplina possui os seguintes professores: ${result.teachers.join(',')}`);
                 }
                 else {
                     agent.add("A disciplina não possui nenhum professor cadastrado no sistema!");
@@ -105,115 +120,94 @@ export class CursoInfo {
             } else {
                 agent.add("Desculpe, não encontrei a disciplina.");
             }
-        }).catch(error => {
+        } catch (error) {
             agent.add("Desculpe, houve um erro na aplicação. Tente novamente");
-        });
+        }
     }
 
     /**
      * @function getCourseSchedule
      * @param agent
      */
-    public getCourseSchedule(agent: WebhookClient) {
-        const course = agent.parameters.Course;
-        
-        const courseRef = this.db.collection('cursos'); 
+    public async getCourseSchedule(agent: WebhookClient) {
+        try {
+            const courseId = agent.parameters.Course;
+            let courseRepo = this.repoFactory.create(CourseRepository);
 
-        let coursePr = new DataAccessHelper(courseRef).doc(course);
+            let course = await courseRepo.get(courseId);
 
-        return coursePr.then(courseRes => {
-            if(courseRes){
-                const offersRef = courseRef.doc(courseRes.sigla).collection('oferecimentos');
+            if(course){
 
-                let offersPr = new DataAccessHelper(offersRef).coll();
+                let classes = await course.getClasses();
 
-                return offersPr.then(offers => {
+                let messageBuilder = [];
+                for(const offer of classes){
+                    const classCode = offer.code.toString().slice(-2);
 
-                    return Promise.all<temp>(
+                    messageBuilder.push(`--> A turma ${classCode} tem os seguintes horários: /\n/`);
 
-                        offers.map(offer => {
-                            const class_code = offer.codigo_turma.toString().slice(-2);
-    
-                            const schedulesRef = offersRef.doc(offer.codigo_turma).collection("horarios");
-                            
-                            let schedulesPr = new DataAccessHelper(schedulesRef).coll();
-
-                            return schedulesPr.then(schedules => {
-
-                                // model
-                                return {
-                                    class_code: class_code,
-                                    schedules: schedules
-                                };
-                            })
-                        })
-                    )
-                    .then(class_schedules => {
-                        // view-model
-                        let messageBuilder = [];
-                        class_schedules.forEach(class_schedule => {
-                            messageBuilder.push(`--> A turma ${class_schedule.class_code} tem os seguintes horários: /\n/`);
-
-                            class_schedule.schedules.forEach(schedule => {
-                                messageBuilder.push(`-> ${schedule.dia} às ${schedule.horario_inicio} - ${schedule.horario_fim}\n`);
-                            });
-                        });
-
-                        agent.add(`${messageBuilder.join('')}`)
+                    let schedules = await offer.getSchedules();
+                    schedules.forEach(schedule => {
+                        messageBuilder.push(`-> ${schedule.weekday} às ${schedule.start} - ${schedule.end}\n`);
                     });
-                });
+                }
+
+                agent.add(`${messageBuilder.join('')}`);
             }
             else {
                 agent.add("Desculpe, não encontrei a disciplina.");
                 return void[];
             }
-        })
-        .catch(error => {
+
+        } catch (error) {
             agent.add("Desculpe, houve um erro na aplicação. Tente novamente");
-        });
+        }
     }
 
     /**
      * @function getCourseCredit
      * @param agent
      */
-    public getCourseCredit(agent: WebhookClient) {
-        const course = agent.parameters.Course;
-        let dbHelper = new DataAccessHelper(this.db.collection('cursos'));
-        return dbHelper.doc(course).then(result => {
+    public async getCourseCredit(agent: WebhookClient) {
+        try {
+            const courseId = agent.parameters.Course;
+            let courseRepo = this.repoFactory.create(CourseRepository);
+
+            let result = await courseRepo.get(courseId);
+            
             if (result) {
-                agent.add(`São ${result.creditos.aula} créditos aula e ${result.creditos.trabalho} créditos trabalho`);
+                agent.add(`São ${result.credits.aula} créditos aula e ${result.credits.trabalho} créditos trabalho`);
             } else {
                 agent.add("Desculpe, não encontrei a disciplina.");
             }
-        }).catch(error => {
+        } catch (error) {
             agent.add("Desculpe, houve um erro na aplicação. Tente novamente");
-        });
+        }
     }
     /**
      * @function getCourseFromScheduleDay
      * @param agent
      */
     public getCourseFromScheduleDay(agent: WebhookClient) {
-        agent.add(`getCourseFromScheduleDay 🔥`);
+        agent.add(`TODO getCourseFromScheduleDay 🔥`);
     }
     /**
      * @function getCourseFromScheduleDayHour
      * @param agent
      */
     public getCourseFromScheduleDayHour(agent: WebhookClient) {
-        agent.add(`getCourseFromScheduleDayHour 🔥`);
+        agent.add(`TODO getCourseFromScheduleDayHour 🔥`);
     }
     /**
      * @function fallbackGetCourseId2
      * @param agent
      */
     public fallbackGetCourseId2(agent: WebhookClient) {
-        agent.add(`fallbackGetCourseId2 🔥`);
+        agent.add(`TODO fallbackGetCourseId2 🔥`);
     }
 }
 
-interface temp {
-    class_code: any,
-    schedules: any[]
-}
+// interface temp {
+//     class_code: any,
+//     schedules: any[]
+// }

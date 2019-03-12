@@ -1,5 +1,5 @@
 import { Repository } from "./repository";
-import { Schedule } from "../model/business-class";
+import { Schedule } from "../model/class";
 
 export class ScheduleRepository extends Repository<Schedule> {
 

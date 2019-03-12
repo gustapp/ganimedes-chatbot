@@ -1,13 +1,13 @@
 import { Repository } from "./repository";
-import { ClassProxy } from "../model/business-class";
+import { ClassProxy } from "../model/class";
 
-export class ClasseRepository extends Repository<ClassProxy> {
+export class ClassRepository extends Repository<ClassProxy> {
 
     constructor(db: FirebaseFirestore.Firestore){
         super(db, 'oferecimentos');
     }
 
-    protected map(data: FirebaseFirestore.DocumentData) : ClassProxy {
-        return new ClassProxy(data.codigo_turma, data.tipo_turma);
+    protected map(data: FirebaseFirestore.DocumentData, ref: FirebaseFirestore.DocumentReference) : ClassProxy {
+        return new ClassProxy(ref, data.codigo_turma, data.tipo_turma);
     }
 }

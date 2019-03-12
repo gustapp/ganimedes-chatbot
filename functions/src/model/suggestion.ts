@@ -9,14 +9,14 @@ export class Suggestion {
      * @param agent 
      */
     public getCourseSuggestion(agent: WebhookClient) {
-        const empty = "indiferente";
-        const theme = agent.parameters.theme;
-        const weekdays = agent.parameters.weekdays;
-        const teachers : any[] = agent.parameters.teachers;
-        const max = agent.parameters.suggestion_number;
-        const period = agent.parameters.time_period;
+        // const empty = "indiferente";
+        // const theme = agent.parameters.theme;
+        // const weekdays = agent.parameters.weekdays;
+        // const teachers : any[] = agent.parameters.teachers;
+        // const max = agent.parameters.suggestion_number;
+        // const period = agent.parameters.time_period;
 
-        const collRef = this.db.collection('cursos');
+        // const collRef = this.db.collection('cursos');
 
         // if(period){
         //     collRef.where("oferecimento")

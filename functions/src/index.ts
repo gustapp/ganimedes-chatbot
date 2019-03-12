@@ -3,7 +3,7 @@ import * as admin from 'firebase-admin';
 
 import { WebhookClient } from 'dialogflow-fulfillment';
 import { HandlerFacade } from './handler-facade';
-import { DataAccessFactory } from './data-access/factory';
+import { RepositoryFactory } from './data-access/repository-factory';
 
 process.env.DEBUG = 'dialogflow:debug';
 
@@ -31,7 +31,7 @@ export const dialogflowFirebaseFulfillment = functions.https.onRequest((request,
     // const settings = { timestampsInSnapshots: true };
     // db.settings(settings);
 
-    DataAccessFactory.getInstance(db);
+    // RepositoryFactory.getInstance(db);
 
     const facade = new HandlerFacade(db);
 

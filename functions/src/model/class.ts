@@ -1,5 +1,6 @@
 import { ScheduleRepository } from "../data-access/schedule-repository";
 import { RepositoryFactory } from "../data-access/repository-factory";
+import { Reference } from "./reference";
 
 interface IClass {
     code: String;
@@ -16,19 +17,19 @@ export class Class implements IClass {
     }
 }
 
-export class ClassProxy implements IClass {
+export class ClassProxy extends Reference implements IClass {
     private class: IClass;
 
-    constructor(readonly code: string, readonly type: string){}
+    constructor(docRef: FirebaseFirestore.DocumentReference, readonly code: string, readonly type: string){
+        super(docRef);
+    }
 
-    public async getSchedules() {
+    public async getSchedules(): Promise<Schedule[]> {
         if(!this.class){
-            let repoFactory = RepositoryFactory.getInstance();
-
-            let daSchedules = repoFactory
+            let daSchedules = this.daHelper
                 .create(ScheduleRepository);
 
-            let schedules = await daSchedules.get();
+            let schedules = await daSchedules.getColl();
 
             return schedules;
         }
