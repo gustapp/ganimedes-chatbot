@@ -19,9 +19,9 @@ export class CursoInfo {
     public async getCourse(agent: WebhookClient) {
         try {
             const courseId = agent.parameters.Course;
-            let courseRepo = this.repoFactory.create(CourseRepository);
+            const courseRepo = this.repoFactory.create(CourseRepository);
 
-            let course = await courseRepo.get(courseId);
+            const course = await courseRepo.get(courseId);
 
             if(course){
                 agent.add("O que você gostaria de saber sobre essa disciplina? Talvez a descrição da disciplina, ou os horários?");
@@ -40,9 +40,9 @@ export class CursoInfo {
     public async getCourseInfo(agent: WebhookClient) {
         try {
             const courseId = agent.parameters.Course;
-            let courseRepo = this.repoFactory.create(CourseRepository);
+            const courseRepo = this.repoFactory.create(CourseRepository);
 
-            let result = await courseRepo.get(courseId);
+            const result = await courseRepo.get(courseId);
 
             if(result){
                 agent.add(`A disciplina ${courseId} - ${result.name} possui a seguinte descrição: ${result.objectives}`);
@@ -61,9 +61,9 @@ export class CursoInfo {
     public async getCourseRequirements(agent: WebhookClient) {
         try {
             const courseId = agent.parameters.Course;
-            let courseRepo = this.repoFactory.create(CourseRepository);
+            const courseRepo = this.repoFactory.create(CourseRepository);
 
-            let result = await courseRepo.get(courseId);
+            const result = await courseRepo.get(courseId);
 
             if (result) {
                 if(result.requirements.length > 0){
@@ -86,9 +86,9 @@ export class CursoInfo {
     public async getCourseWorkload(agent: WebhookClient) {
         try {
             const courseId = agent.parameters.Course;
-            let courseRepo = this.repoFactory.create(CourseRepository);
+            const courseRepo = this.repoFactory.create(CourseRepository);
 
-            let result = await courseRepo.get(courseId);
+            const result = await courseRepo.get(courseId);
 
             if (result) {
                 agent.add(`A disciplina possui ${result.workload} horas por semestre!`);
@@ -106,9 +106,9 @@ export class CursoInfo {
     public async getCourseTeacher(agent: WebhookClient) {
         try {
             const courseId = agent.parameters.Course;
-            let courseRepo = this.repoFactory.create(CourseRepository);
+            const courseRepo = this.repoFactory.create(CourseRepository);
 
-            let result = await courseRepo.get(courseId);
+            const result = await courseRepo.get(courseId);
 
             if (result) {
                 if(result.teachers.length > 0){
@@ -132,21 +132,21 @@ export class CursoInfo {
     public async getCourseSchedule(agent: WebhookClient) {
         try {
             const courseId = agent.parameters.Course;
-            let courseRepo = this.repoFactory.create(CourseRepository);
+            const courseRepo = this.repoFactory.create(CourseRepository);
 
-            let course = await courseRepo.get(courseId);
+            const course = await courseRepo.get(courseId);
 
             if(course){
 
-                let classes = await course.getClasses();
+                const classes = await course.getClasses();
 
-                let messageBuilder = [];
+                const messageBuilder = [];
                 for(const offer of classes){
                     const classCode = offer.code.toString().slice(-2);
 
                     messageBuilder.push(`--> A turma ${classCode} tem os seguintes horários: /\n/`);
 
-                    let schedules = await offer.getSchedules();
+                    const schedules = await offer.getSchedules();
                     schedules.forEach(schedule => {
                         messageBuilder.push(`-> ${schedule.weekday} às ${schedule.start} - ${schedule.end}\n`);
                     });
@@ -171,9 +171,9 @@ export class CursoInfo {
     public async getCourseCredit(agent: WebhookClient) {
         try {
             const courseId = agent.parameters.Course;
-            let courseRepo = this.repoFactory.create(CourseRepository);
+            const courseRepo = this.repoFactory.create(CourseRepository);
 
-            let result = await courseRepo.get(courseId);
+            const result = await courseRepo.get(courseId);
             
             if (result) {
                 agent.add(`São ${result.credits.aula} créditos aula e ${result.credits.trabalho} créditos trabalho`);

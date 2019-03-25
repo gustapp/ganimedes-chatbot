@@ -1,5 +1,4 @@
 import { ScheduleRepository } from "../data-access/schedule-repository";
-import { RepositoryFactory } from "../data-access/repository-factory";
 import { Reference } from "./reference";
 
 interface IClass {
@@ -26,10 +25,10 @@ export class ClassProxy extends Reference implements IClass {
 
     public async getSchedules(): Promise<Schedule[]> {
         if(!this.class){
-            let daSchedules = this.daHelper
+            const daSchedules = this.daHelper
                 .create(ScheduleRepository);
 
-            let schedules = await daSchedules.getColl();
+            const schedules = await daSchedules.getColl();
 
             return schedules;
         }

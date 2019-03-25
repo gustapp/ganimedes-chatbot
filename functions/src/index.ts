@@ -3,7 +3,6 @@ import * as admin from 'firebase-admin';
 
 import { WebhookClient } from 'dialogflow-fulfillment';
 import { HandlerFacade } from './handler-facade';
-import { RepositoryFactory } from './data-access/repository-factory';
 
 process.env.DEBUG = 'dialogflow:debug';
 
@@ -14,7 +13,7 @@ admin.initializeApp(functions.config().firebase);
  * Test function
  */
 export const helloWorld = functions.https.onRequest((request, response) => {
-    response.send("Hello! Lets chat!");
+    response.send("Hello! Lets chat! lol");
 });
 
 /**

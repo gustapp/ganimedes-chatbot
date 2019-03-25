@@ -11,7 +11,7 @@ export abstract class Repository<T> {
      * @param id document key
      */
     public async get(id: string) {
-        let doc = await this.collectionRef.doc(id).get();
+        const doc = await this.collectionRef.doc(id).get();
         if (doc.exists) {
             // returns orm data
             return this.map(doc.data(), doc.ref);
@@ -25,9 +25,9 @@ export abstract class Repository<T> {
      * @returns Collection of documents
      */
     public async getColl() {
-        let querySnapshot = await this.collectionRef.get()
+        const querySnapshot = await this.collectionRef.get()
         // Collection of retrieved documents
-        let result: T[] = [];
+        const result: T[] = [];
         querySnapshot.forEach(doc => {
             result.push(this.map(doc.data(), doc.ref));
         });

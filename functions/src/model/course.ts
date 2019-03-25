@@ -1,4 +1,3 @@
-import { RepositoryFactory } from "../data-access/repository-factory";
 import { ClassRepository } from "../data-access/class-repository";
 import { Reference } from './reference';
 import { ClassProxy } from "./class";
@@ -56,10 +55,10 @@ export class CourseProxy extends Reference implements ICourse {
 
     public async getClasses(): Promise<ClassProxy[]>{
         if (!this.course) {
-            let daClass = this.daHelper
+            const daClass = this.daHelper
                 .create(ClassRepository);
 
-            let classes = await daClass.getColl();
+            const classes = await daClass.getColl();
 
             return classes;
         }

@@ -9,6 +9,21 @@
             "console": "integratedTerminal"
         },
         {
+            "name": "Python: Flask",
+            "type": "python",
+            "request": "launch",
+            "module": "flask",
+            "env": {
+                "FLASK_APP": "${workspaceFolder}/functions/src/main.py",
+            },
+            "args": [
+                "run",
+                "--no-debugger",
+                "--no-reload"
+            ],
+            "jinja": true
+        },
+        {
             "name": "Cloud functions debug",
             "type": "node",
             "request": "attach",
