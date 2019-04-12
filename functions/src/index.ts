@@ -45,15 +45,15 @@ export const dialogflowFirebaseFulfillment = functions.https.onRequest((request,
     // Jupiter intents
     intentMap.set('fallbackGetCourseId2', facade.fallbackGetCourseId2);
     intentMap.set('getCourse', (client) => facade.getCourse(client));
-    intentMap.set('GetCourseInfo', (client) => facade.getCourseInfo(client)); //ok
-    intentMap.set('GetCourseRequirements', (client) => facade.getCourseRequirements(client)); //ok
-    intentMap.set('GetCourseWorkload', (client) => facade.getCourseWorkload(client)); //ok
-    intentMap.set('GetCourseTeacher', (client) => facade.getCourseTeacher(client)); //ok
-    intentMap.set('GetCourseSchedule', (client) => facade.getCourseSchedule(client)); //ok
-    intentMap.set('GetCourseCredit', (client) => facade.getCourseCredit(client)); //ok
-    intentMap.set('getCourseFromScheduleDay', facade.getCourseFromScheduleDay); //not implemented
-    intentMap.set('getCourseFromScheduleDayHour', facade.getCourseFromScheduleDayHour); //not implemented
-    intentMap.set('GetCourseSuggestion', facade.getCourseSuggestion);
+    intentMap.set('GetCourseInfo', (client) => facade.getCourseInfo(client));
+    intentMap.set('GetCourseRequirements', (client) => facade.getCourseRequirements(client));
+    intentMap.set('GetCourseWorkload', (client) => facade.getCourseWorkload(client));
+    intentMap.set('GetCourseTeacher', (client) => facade.getCourseTeacher(client));
+    intentMap.set('GetCourseSchedule', (client) => facade.getCourseSchedule(client));
+    intentMap.set('GetCourseCredit', (client) => facade.getCourseCredit(client));
+    intentMap.set('getCourseFromScheduleDay', (client) => facade.getCourseFromScheduleDay(client)); 
+    intentMap.set('getCourseFromScheduleDayHour', (client) => facade.getCourseFromScheduleDayHour(client));
+    intentMap.set('GetCourseSuggestion', (client) => facade.getCourseSuggestion(client));
 
     agent.handleRequest(intentMap);
 });

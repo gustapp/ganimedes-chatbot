@@ -1,13 +1,15 @@
 import { WebhookClient, Card, Suggestion } from 'dialogflow-fulfillment';
 import { CursoInfo } from './model/curso-info';
+import { CourseSuggestion } from './model/course-suggestion';
 /**
  * @class
  * Facade for all handlers
  */
 export class HandlerFacade {
 
-    // private refFactory: ReferenceFactory;
     private cursoInfo: CursoInfo;
+    private courseRecommender: CourseSuggestion;
+
     /**
      * @constructor
      * @param db firestore manager
@@ -15,6 +17,7 @@ export class HandlerFacade {
     constructor(db: FirebaseFirestore.Firestore){
         // this.refFactory = new ReferenceFactory(db);
         this.cursoInfo = new CursoInfo(db);
+        this.courseRecommender = new CourseSuggestion(db);
     }
     /**
      * @function welcome
@@ -124,7 +127,7 @@ export class HandlerFacade {
      * @param agent
      */
     public getCourseSuggestion(agent: WebhookClient) {
-        agent.add(`getCourseSuggestion 🔥`);
+        this.courseRecommender.getCourseSuggestion(agent);
     }
     /**
      * @function getCourseSuggestionBefore

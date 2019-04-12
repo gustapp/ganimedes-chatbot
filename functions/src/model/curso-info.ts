@@ -1,8 +1,6 @@
 import { WebhookClient } from 'dialogflow-fulfillment';
 import { RepositoryFactory } from '../data-access/repository-factory';
 import { CourseRepository } from '../data-access/course-repository';
-// import { ClassRepository  } from '../data-access/class-repository'
-// import { ScheduleRepository } from '../data-access/schedule-repository'
 
 export class CursoInfo {
 
@@ -206,8 +204,3 @@ export class CursoInfo {
         agent.add(`TODO fallbackGetCourseId2 🔥`);
     }
 }
-
-// interface temp {
-//     class_code: any,
-//     schedules: any[]
-// }

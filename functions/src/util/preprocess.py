@@ -1,6 +1,5 @@
-import gensim
 from gensim.models.doc2vec import Doc2Vec, TaggedDocument
-from nltk.tokenize import word_tokenize
+from gensim.utils import simple_preprocess
 from gensim.parsing.preprocessing import STOPWORDS
 
 import nltk
