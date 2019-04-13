@@ -66,9 +66,14 @@ def get_course_suggestion(request):
 
     similar_to_interest = model.docvecs.most_similar(positive=[interest_infer_vector])
 
+    transparent_recomms = []
+    for title, score in similar_to_interest:
+        explanation = generate_explanation(interest_text, title)
+        transparent_recomms.append((title, score, explanation))
+
     """Wrap all return data into JSON"""
     from flask import jsonify, json
-    suggestion = CourseSuggestion(similar_to_interest) 
+    suggestion = CourseSuggestion(transparent_recomms) 
 
     return jsonify(suggestion.__dict__)
 
@@ -77,28 +82,10 @@ from gensim.corpora import Dictionary
 import numpy as np
 
 class CourseSuggestionExplanation:
-    def __init__(self, topic, score):
-        self.topic = topic
-        self.score = score
+    def __init__(self, topics):
+        self.topics = topics
 
-def get_course_suggestion_explanation(request):
-    """Responds to any HTTP request.
-    Args:
-        request (flask.Request): HTTP request object.
-    Returns:
-        The response text or any set of values that can be turned into a
-        Response object using
-        `make_response <http://flask.pocoo.org/docs/1.0/api/#flask.Flask.make_response>`.
-    """
-    request_json = request.get_json()
-    if request.args and 'message' in request.args and 'suggestion' in request.args:
-        interest_text = request.args.get('message')
-        recommended_title = request.args.get('suggestion')
-    elif request_json and 'message' in request_json:
-        interest_text = request_json['message']
-    else:
-        return f'Course Suggestion Explanation'
-
+def generate_explanation(interest_text, recommended_title):
     from os import path
     root = path.dirname(path.abspath(__file__))
 
@@ -121,10 +108,12 @@ def get_course_suggestion_explanation(request):
     """ TODO:
         Fetch article abstract from Firestore
     """
-    if recommended_title == "reinforcement-learning based dialogue system for human-robot interactions with socially-inspired rewards":
-        recom_article_abstract = "© 2015 Elsevier Ltd. All rights reserved. This paper investigates some conditions under which polarized user appraisals gathered throughout the course of a vocal interaction between a machine and a human can be integrated in a reinforcement learning-based dialogue manager. More specifically, we discuss how this information can be cast into socially-inspired rewards for speeding up the policy optimisation for both efficient task completion and user adaptation in an online learning setting. For this purpose a potential-based reward shaping method is combined with a sample efficient reinforcement learning algorithm to offer a principled framework to cope with these potentially noisy interim rewards. The proposed scheme will greatly facilitate the system's development by allowing the designer to teach his system through explicit positive/negative feedbacks given as hints about task progress, in the early stage of training. At a later stage, the approach will be used as a way to ease the adaptation of the dialogue policy to specific user profiles. Experiments carried out using a state-of-the-art goal-oriented dialogue management framework, the Hidden Information State (HIS), support our claims in two configurations: firstly, with a user simulator in the tourist information domain (and thus simulated appraisals), and secondly, in the context of man-robot dialogue with real user trials."
-    else:
-        recom_article_abstract = recommended_title
+    import pandas as pd
+
+    df = pd.read_csv('./functions/models/dataset/chatbot-articles.csv', error_bad_lines=False)
+    abstracts = df[['title','abstract']].dropna()
+
+    recom_article_abstract = abstracts.loc[df['title'] == recommended_title]['abstract'].values[0]
 
     """Preprocess text"""
     interest_text_clean = preprocess(interest_text)
@@ -153,13 +142,41 @@ def get_course_suggestion_explanation(request):
                 topic_similarity.append((intrs_index, recom_value * intrs_value))
     
     most_influential_topics = sorted(topic_similarity, key=lambda tup: -1*tup[1])
-    index, score = most_influential_topics[0]
 
-    reason = lda_model.print_topic(index)
+    # if len(most_influential_topics) >= 1:
+    #     index, score = most_influential_topics[0]
+    # else:
+    #     return f'Fault'
+
+    reasons = []
+    for index, score in most_influential_topics:
+        reason = lda_model.print_topic(index)
+        reasons.append((index, reason, str(score)))
+
+    return reasons
+
+def get_course_suggestion_explanation(request):
+    """Responds to any HTTP request.
+    Args:
+        request (flask.Request): HTTP request object.
+    Returns:
+        The response text or any set of values that can be turned into a
+        Response object using
+        `make_response <http://flask.pocoo.org/docs/1.0/api/#flask.Flask.make_response>`.
+    """
+    request_json = request.get_json()
+    if request.args and 'message' in request.args and 'suggestion' in request.args:
+        interest_text = request.args.get('message')
+        recommended_title = request.args.get('suggestion')
+    elif request_json and 'message' in request_json:
+        interest_text = request_json['message']
+    else:
+        return f'Course Suggestion Explanation'
+
+    explanation = generate_explanation(interest_text, recommended_title)
 
     """Wrap all return data into JSON"""
     from flask import jsonify, json
-    explanation = CourseSuggestionExplanation(reason, str(score)) 
 
     return jsonify(explanation.__dict__)
 
