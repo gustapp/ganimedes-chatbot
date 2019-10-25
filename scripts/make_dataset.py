@@ -145,58 +145,58 @@ for doc in corpus_tfidf:
     pprint(doc)
     break
 
-#%% [markdown]
-# ## Topic Model
+# #%% [markdown]
+# # ## Topic Model
 
-#%%
-# Running LDA using BOW
-from gensim.models.coherencemodel import CoherenceModel
+# #%%
+# # Running LDA using BOW
+# from gensim.models.coherencemodel import CoherenceModel
 
-import logging
-logging.basicConfig(filename='./lda_bow.log',
-                    format="%(asctime)s:%(levelname)s:%(message)s",
-                    level=logging.INFO)
+# import logging
+# logging.basicConfig(filename='./lda_bow.log',
+#                     format="%(asctime)s:%(levelname)s:%(message)s",
+#                     level=logging.INFO)
 
-coherence_x_n_topics = []
-for n_topics in range(3, 101):
-    lda_model = gensim.models.LdaMulticore(bow_corpus, num_topics=n_topics, id2word=dictionary, \
-        alpha=[0.01]*n_topics, eta=[0.01]*len(dictionary.keys()), passes=78, workers=11)
+# coherence_x_n_topics = []
+# for n_topics in range(3, 101):
+#     lda_model = gensim.models.LdaMulticore(bow_corpus, num_topics=n_topics, id2word=dictionary, \
+#         alpha=[0.01]*n_topics, eta=[0.01]*len(dictionary.keys()), passes=78, workers=11)
 
-    lda_model.save('./lda_bow/lda_model_tp-' + str(n_topics))
+#     lda_model.save('./lda_bow/lda_model_tp-' + str(n_topics))
 
-    """ Coherence Model - Umass """
-    cm_bow = CoherenceModel(model=lda_model, corpus=bow_corpus, coherence='u_mass')
-    coherence_value_umass = cm_bow.get_coherence()
+#     """ Coherence Model - Umass """
+#     cm_bow = CoherenceModel(model=lda_model, corpus=bow_corpus, coherence='u_mass')
+#     coherence_value_umass = cm_bow.get_coherence()
 
-    logging.info('coherence value - umass: ' + str(coherence_value_umass))
+#     logging.info('coherence value - umass: ' + str(coherence_value_umass))
 
-    """ Coherence Model - C_V """
-    cm_bow_cv = CoherenceModel(model=lda_model, corpus=bow_corpus, texts=processed_docs, dictionary=dictionary, coherence='c_v')
-    coherence_value_cv = cm_bow_cv.get_coherence()
+#     """ Coherence Model - C_V """
+#     cm_bow_cv = CoherenceModel(model=lda_model, corpus=bow_corpus, texts=processed_docs, dictionary=dictionary, coherence='c_v')
+#     coherence_value_cv = cm_bow_cv.get_coherence()
 
-    logging.info('coherence value - cv: ' + str(coherence_value_cv))
+#     logging.info('coherence value - cv: ' + str(coherence_value_cv))
 
-    """ Coherence Model - C_UCI """
-    cm_bow_uci = CoherenceModel(model=lda_model, corpus=bow_corpus, texts=processed_docs, dictionary=dictionary, coherence='c_uci')
-    coherence_value_cuci = cm_bow_uci.get_coherence()
+#     """ Coherence Model - C_UCI """
+#     cm_bow_uci = CoherenceModel(model=lda_model, corpus=bow_corpus, texts=processed_docs, dictionary=dictionary, coherence='c_uci')
+#     coherence_value_cuci = cm_bow_uci.get_coherence()
 
-    logging.info('coherence value - cuci: ' + str(coherence_value_cuci))
+#     logging.info('coherence value - cuci: ' + str(coherence_value_cuci))
 
-    """ Coherence Model - C_NPMI """
-    cm_bow_npmi = CoherenceModel(model=lda_model, corpus=bow_corpus, texts=processed_docs, dictionary=dictionary, coherence='c_npmi')
-    coherence_value_cnpmi = cm_bow_npmi.get_coherence()
+#     """ Coherence Model - C_NPMI """
+#     cm_bow_npmi = CoherenceModel(model=lda_model, corpus=bow_corpus, texts=processed_docs, dictionary=dictionary, coherence='c_npmi')
+#     coherence_value_cnpmi = cm_bow_npmi.get_coherence()
 
-    logging.info('coherence value - cnpmi: ' + str(coherence_value_cnpmi))
+#     logging.info('coherence value - cnpmi: ' + str(coherence_value_cnpmi))
 
-    coherence_x_n_topics.append((n_topics, coherence_value_umass, coherence_value_cv, coherence_value_cuci, coherence_value_cnpmi))
+#     coherence_x_n_topics.append((n_topics, coherence_value_umass, coherence_value_cv, coherence_value_cuci, coherence_value_cnpmi))
 
-    for idx, topic in lda_model.print_topics(-1):
-        print('Topic: {} \nWords: {}'.format(idx, topic))
+#     for idx, topic in lda_model.print_topics(-1):
+#         print('Topic: {} \nWords: {}'.format(idx, topic))
 
-model_metrics = pd.DataFrame(data=coherence_x_n_topics, columns=['n topics', 'umass', 'cv', 'cuci', 'cnpmi'], index=range(3, 101))
-model_metrics.head()
+# model_metrics = pd.DataFrame(data=coherence_x_n_topics, columns=['n topics', 'umass', 'cv', 'cuci', 'cnpmi'], index=range(3, 101))
+# model_metrics.head()
 
-model_metrics.to_csv('./coherence_curve_bow.csv') 
+# model_metrics.to_csv('./coherence_curve_bow.csv') 
 
 
 #%%

@@ -6,30 +6,54 @@
 /**
  * Load app config from app.config.js (do not commit this file)
  */
-const config = require('./app.config');
-const firebase = require('firebase');
+const admin = require('firebase-admin');
+let serviceAccount = require('../auth/ganimedes-d9ecd-d860c9b7caa9.json');
 
-firebase.initializeApp(config);
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount)
+});
 
-const firestore = firebase.firestore();
-const settings = { timestampsInSnapshots: true };
-firestore.settings(settings);
+let firestore = admin.firestore();
+
+// const config = require('./app.config');
+// const firebase = require('firebase');
+
+// firebase.initializeApp(config);
+
+// const firestore = firebase.firestore();
+// const settings = { timestampsInSnapshots: true };
+// firestore.settings(settings);
 
 const coursesRef = firestore.collection("cursos"); /* Destination collection */
+const conceptsRef = firestore.collection("conceitos"); /* Destination collection */
 
 /**
  * @method ManualFill
  * Read data from json file and populate firestore with its data
  */
 const fs = require('fs');
-var data_file = './scripts/dataset/courses_data.json'; /* Source file */
+var data_file = './scripts/data/desc_entities.json'; /* Source file */
 
 fs.readFile(data_file, 'utf8', function (err, data) {
     if (err) throw err;
     var data_array = JSON.parse(data);
 
-    data_array.forEach(data_item => moveFieldToCollection(data_item))
+    data_array.forEach(data_item => addDescription(data_item))
 });
+
+// /**
+//  * @method ManualFill
+//  * Read data from csv file and populate firestore with its data
+//  */
+// const fs = require('fs');
+// var data_file = './scripts/data/desc_entities.csv'; /* Source file */
+
+// fs.readFile(data_file, 'utf8', function (err, data) {
+//     if (err) throw err;
+//     var data_array = data.split('\n').map(e => e.trim()).map(e => e.split(',"').map(e => e.trim()));
+
+//     data_array.forEach(data_item => addDescription(data_item))
+// });
 
 /**
  * @library
@@ -37,6 +61,15 @@ fs.readFile(data_file, 'utf8', function (err, data) {
  */
 function addData(document){
     coursesRef.doc(document.sigla).set(document).then(docRef => {
+        console.log("success: ", docRef.id);
+    })
+    .catch(error => {
+        console.log("Error on write: ", error);
+    });
+}
+
+function addDescription(document){
+    conceptsRef.doc(document['pt-concept']).set(document).then(docRef => {
         console.log("success: ", docRef.id);
     })
     .catch(error => {

@@ -1,0 +1,3 @@
+[submodule "functions/src/model/knowledge_base/openke"]
+	path = functions/src/model/knowledge_base/openke
+	url = https://github.com/thunlp/OpenKE.git

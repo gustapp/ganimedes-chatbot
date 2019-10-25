@@ -2,11 +2,11 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python: Terminal (integrated)",
+            "name": "Python: Terminal (internal)",
             "type": "python",
             "request": "launch",
             "program": "${file}",
-            "console": "integratedTerminal"
+            "console": "internalConsole"
         },
         {
             "name": "Python: Flask",
@@ -14,14 +14,15 @@
             "request": "launch",
             "module": "flask",
             "env": {
-                "FLASK_APP": "${workspaceFolder}/functions/src/main.py",
+                "FLASK_APP": "${workspaceFolder}/functions/src/main_emulate.py",
             },
             "args": [
                 "run",
                 "--no-debugger",
                 "--no-reload"
             ],
-            "jinja": true
+            "jinja": true,
+            "console": "internalConsole"
         },
         {
             "name": "Cloud functions debug",
@@ -33,7 +34,7 @@
             "type": "node",
             "request": "launch",
             "name": "Run script",
-            "program": "${workspaceFolder}/scripts/firestore.export_csv.js",
+            "program": "${workspaceFolder}/scripts/firestore.manual_fill.js",
             "outFiles": [
                 "${workspaceFolder}/**/*.js"
             ]
