@@ -64,3 +64,4 @@ To run the test, execute the previous section steps from **1** to **4**. After t
 
 > `npm run test`
 
+curl -X POST -H "Content-Type: application/json" -d @./functions/test/mock/getConceptDescription.json http://localhost:5000/dialogflow-fulfillment

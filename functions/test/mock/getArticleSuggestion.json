@@ -1,0 +1,104 @@
+{
+  "responseId": "cd016f35-8ad4-4446-beba-c6e849dcc35e",
+  "queryResult": {
+    "queryText": "não",
+    "parameters": {
+      "weekdays": [
+        "indiferente"
+      ],
+      "theme": "reinforcement learning",
+      "teachers": [
+        "Indiferente"
+      ],
+      "time_period": "",
+      "suggestion_number": 1
+    },
+    "allRequiredParamsPresent": true,
+    "fulfillmentMessages": [
+      {
+        "text": {
+          "text": [
+            ""
+          ]
+        }
+      }
+    ],
+    "outputContexts": [
+      {
+        "name": "projects/ganimedes-d9ecd/agent/sessions/ed574ffd-6f19-1ae6-e1d2-ba60abae9b20/contexts/getcourseinfo_dialog_params_course",
+        "parameters": {
+          "suggestion_number": 1,
+          "teachers": [
+            "Indiferente"
+          ],
+          "weekdays": [
+            "indiferente"
+          ],
+          "theme": "reinforcement learning",
+          "time_period.original": "",
+          "teachers.original": "não",
+          "Course": "",
+          "weekdays.original": "não",
+          "Course.original": "",
+          "time_period": "",
+          "theme.original": "reinforcement learning",
+          "suggestion_number.original": "um"
+        }
+      },
+      {
+        "name": "projects/ganimedes-d9ecd/agent/sessions/ed574ffd-6f19-1ae6-e1d2-ba60abae9b20/contexts/7e7fc730-52e0-4f7c-b67c-72c61b5465b9_id_dialog_context",
+        "lifespanCount": 1,
+        "parameters": {
+          "suggestion_number": 1,
+          "teachers": [
+            "Indiferente"
+          ],
+          "weekdays": [
+            "indiferente"
+          ],
+          "theme": "reinforcement learning",
+          "time_period.original": "",
+          "teachers.original": "não",
+          "Course": "",
+          "weekdays.original": "não",
+          "Course.original": "",
+          "time_period": "",
+          "theme.original": "reinforcement learning",
+          "suggestion_number.original": "um"
+        }
+      },
+      {
+        "name": "projects/ganimedes-d9ecd/agent/sessions/ed574ffd-6f19-1ae6-e1d2-ba60abae9b20/contexts/getcourseinfo_dialog_context",
+        "lifespanCount": 1,
+        "parameters": {
+          "suggestion_number": 1,
+          "teachers": [
+            "Indiferente"
+          ],
+          "weekdays": [
+            "indiferente"
+          ],
+          "theme": "reinforcement learning",
+          "time_period.original": "",
+          "teachers.original": "não",
+          "Course": "",
+          "weekdays.original": "não",
+          "Course.original": "",
+          "time_period": "",
+          "theme.original": "reinforcement learning",
+          "suggestion_number.original": "um"
+        }
+      }
+    ],
+    "intent": {
+      "name": "projects/ganimedes-d9ecd/agent/intents/c33bbe34-99ed-4102-9f4d-41a27ad95ece",
+      "displayName": "GetCourseSuggestion"
+    },
+    "intentDetectionConfidence": 1,
+    "languageCode": "pt-br"
+  },
+  "originalDetectIntentRequest": {
+    "payload": {}
+  },
+  "session": "projects/ganimedes-d9ecd/agent/sessions/ed574ffd-6f19-1ae6-e1d2-ba60abae9b20"
+}

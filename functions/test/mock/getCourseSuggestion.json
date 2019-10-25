@@ -1,25 +1,33 @@
 {
-    "responseId": "df1f08a4-65b3-4f57-ad97-a4bdad277207",
+    "responseId": "45fa08dd-66bc-41ff-ac91-43e97a4fb40d-2a4c0c5e",
     "queryResult": {
-      "queryText": "não",
+      "queryText": "segunda das 14 as 15 horas",
       "parameters": {
-        "theme": "não",
+        "time_period": {
+          "endTime": "2019-10-05T13:00:00-03:00",
+          "startTime": "2019-10-05T11:00:00-03:00"
+        },
+        "theme": "aprendizado de máquina",
+        "suggestion_number": "1",
         "teachers": [
-          "Indiferente"
+          "Fabio Gagliardi Cozman"
         ],
         "weekdays": [
-          "indiferente"
-        ],
-        "time-periods": {
-          "startTime": "2019-01-22T12:00:00-02:00",
-          "endTime": "2019-01-22T16:00:00-02:00"
-        },
-        "suggestion-number": "1",
-        "time-period": "",
-        "suggestionNumber": "1"
+          "sex"
+        ]
       },
       "allRequiredParamsPresent": true,
       "fulfillmentMessages": [
+        {
+          "platform": "ACTIONS_ON_GOOGLE",
+          "suggestions": {
+            "suggestions": [
+              {
+                "title": "Alert ,me of new tips"
+              }
+            ]
+          }
+        },
         {
           "text": {
             "text": [
@@ -33,10 +41,14 @@
         "displayName": "GetCourseSuggestion"
       },
       "intentDetectionConfidence": 1,
+      "diagnosticInfo": {
+        "webhook_latency_ms": 4997
+      },
       "languageCode": "pt-br"
     },
-    "originalDetectIntentRequest": {
-      "payload": {}
+    "webhookStatus": {
+      "code": 4,
+      "message": "Webhook call failed. Error: Request timeout."
     },
-    "session": "projects/ganimedes-d9ecd/agent/sessions/004512c8-63b0-1b8b-f399-3bba29758bc5"
-}
+    "agentId": "7e2ae72d-92cc-44c9-962f-daf43f2fae60"
+  }

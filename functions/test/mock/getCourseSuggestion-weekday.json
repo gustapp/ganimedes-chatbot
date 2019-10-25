@@ -1,0 +1,53 @@
+{
+    "responseId": "e6d2da4a-6da2-418a-bece-3d6a381a6078-2a4c0c5e",
+    "queryResult": {
+      "queryText": "segunda, terça e quarta",
+      "parameters": {
+        "time_period": "",
+        "theme": "aprendizado de máquina",
+        "suggestion_number": "1",
+        "teachers": [
+          "indiferente"
+        ],
+        "weekdays": [
+          "seg",
+          "ter",
+          "qua"
+        ]
+      },
+      "allRequiredParamsPresent": true,
+      "fulfillmentMessages": [
+        {
+          "platform": "ACTIONS_ON_GOOGLE",
+          "suggestions": {
+            "suggestions": [
+              {
+                "title": "Alert ,me of new tips"
+              }
+            ]
+          }
+        },
+        {
+          "text": {
+            "text": [
+              ""
+            ]
+          }
+        }
+      ],
+      "intent": {
+        "name": "projects/ganimedes-d9ecd/agent/intents/c33bbe34-99ed-4102-9f4d-41a27ad95ece",
+        "displayName": "GetCourseSuggestion"
+      },
+      "intentDetectionConfidence": 1,
+      "diagnosticInfo": {
+        "webhook_latency_ms": 140
+      },
+      "languageCode": "pt-br"
+    },
+    "webhookStatus": {
+      "code": 3,
+      "message": "Webhook call failed. Error: Failed to parse webhook JSON response: Expect message object but got: \"undefined\"."
+    },
+    "agentId": "7e2ae72d-92cc-44c9-962f-daf43f2fae60"
+  }

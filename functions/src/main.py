@@ -1,77 +1,46 @@
-import gensim
-from gensim.models.doc2vec import Doc2Vec, TaggedDocument
-from nltk.tokenize import word_tokenize
-from gensim.utils import simple_preprocess
-from gensim.parsing.preprocessing import STOPWORDS
+import logging
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import firestore
+from intent_handler import IntentHandler
 
-import nltk
-from nltk.stem import WordNetLemmatizer, SnowballStemmer, PorterStemmer
-from nltk.tokenize import word_tokenize
-# nltk.download('wordnet')
+logging.basicConfig(format='%(asctime)s - %(name)s | %(levelname)s | %(message)s', datefmt='%d-%b-%y %H:%M:%S')
 
-def lemmatize_stemming(text):
-    stemmer = PorterStemmer()
-    return stemmer.stem(WordNetLemmatizer().lemmatize(text, pos='v'))
+project_id = 'ganimedes-d9ecd'
 
-def preprocess(text):
-    result = []
-    for token in gensim.utils.simple_preprocess(text):
-        if token not in gensim.parsing.preprocessing.STOPWORDS and len(token) > 3:
-            # result.append(lemmatize_stemming(token))
-            result.append(token)
-    return result
+# # Use the application default credentials
+# cred = credentials.ApplicationDefault()
+# firebase_admin.initialize_app(cred, {
+#   'projectId': project_id,
+# })
 
-from gensim.models.doc2vec import Doc2Vec
-from nltk.tokenize import word_tokenize
+# (DEBUG ONLY)
+cred = credentials.Certificate('./auth/ganimedes-d9ecd-d860c9b7caa9.json')
+firebase_admin.initialize_app(cred)
 
-def get_course_suggestion(request):
-    """Responds to any HTTP request.
+# Retrieve Firestore
+db = firestore.client()
+
+# Initialize intent handler facade 
+agent = IntentHandler(db)
+
+def get_dialogflow_fulfillment(request, agent=agent):
+    """Responds to Dialogflow fulfillment webhook request.
     Args:
         request (flask.Request): HTTP request object.
     Returns:
-        The response text or any set of values that can be turned into a
-        Response object using
-        `make_response <http://flask.pocoo.org/docs/1.0/api/#flask.Flask.make_response>`.
+        JSON object with response text.
     """
+    logging.info('dialogflow request headers: {}'.format(request.headers))
+    logging.info('dialogflow request body: {}'.format(request.data))
+
     request_json = request.get_json()
-    if request.args and 'message' in request.args:
-        interest_text = request.args.get('message')
-    elif request_json and 'message' in request_json:
-        interest_text = request_json['message']
-    else:
-        return f'Hello World!'
+    query_result = request_json['queryResult']
 
-    # nltk.download('wordnet')
+    intent = query_result['intent']['displayName']
+    params = query_result['parameters']
+    context = query_result['outputContexts']
 
-    from os import path
-    root = path.dirname(path.abspath(__file__))
+    res = agent.handle_intent(intent, params, context)
 
-    model_file = path.join(root, 'artifacts/d2v/d2v.model')
-    model= Doc2Vec.load(model_file)
-    
-    test_data = preprocess(interest_text)
-
-    alpha = 0.025
-    interest_infer_vector = model.infer_vector(test_data, alpha=alpha, min_alpha=0.00025, epochs=100)
-
-    similar_to_interest = model.docvecs.most_similar(positive=[interest_infer_vector])
-
-    return 'Suggestions: {}'.format(similar_to_interest)
-
-
-if __name__ == "__main__":
-    """ Runs python 3.7 Cloud Functions locally
-    Conditions:
-        * __main__ : being run directly
-        * main : being run on debugger
-
-        Flask app wrapper
-    """
-    from flask import Flask, request
-    app = Flask(__name__)
-
-    @app.route('/course_suggestion')
-    def course_suggestion():
-        return get_course_suggestion(request)
-
-    app.run('localhost', 8000, debug=True)
+    return res

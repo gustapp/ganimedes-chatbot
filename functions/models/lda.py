@@ -5,7 +5,7 @@
 # Latent Dirichlet Allocation
 import pandas as pd
 
-df = pd.read_csv('./dataset/chatbot-articles.csv', error_bad_lines=False)
+df = pd.read_csv('./functions/models/dataset/chatbot-articles.csv', error_bad_lines=False)
 data_text = df[['abstract']].dropna()
 data_text['index'] = data_text.index
 documents = data_text
@@ -118,7 +118,7 @@ num_topics = 20
 lda_model = gensim.models.LdaMulticore(bow_corpus, num_topics=num_topics, id2word=dictionary, \
         alpha=[0.01]*num_topics, eta=[0.01]*len(dictionary.keys()), passes=4, workers=4)
 
-lda_model.save('./models/lda_bow/lda_model')
+lda_model.save('./functions/src/artifacts/lda_bow/lda_model')
 
 for idx, topic in lda_model.print_topics(-1):
     print('Topic: {} \nWords: {}'.format(idx, topic))
@@ -129,7 +129,7 @@ num_topics = 18
 lda_model_tfidf = gensim.models.LdaMulticore(corpus_tfidf, num_topics=num_topics, id2word=dictionary, \
         alpha=[0.01]*num_topics, eta=[0.01]*len(dictionary.keys()), passes=4, workers=4)
 
-lda_model.save('./models/lda_tfidf/lda_model_tfidf')
+lda_model.save('./functions/src/artifacts/lda_tfidf/lda_model_tfidf')
 
 for idx, topic in lda_model_tfidf.print_topics(-1):
     print('Topic: {} Word: {}'.format(idx, topic))

@@ -28,7 +28,7 @@ def preprocess(text):
 from gensim.models.doc2vec import Doc2Vec
 from nltk.tokenize import word_tokenize
 
-model= Doc2Vec.load("./functions/models/artifacts/d2v/d2v.model")
+model= Doc2Vec.load("./functions/src/artifacts/d2v/d2v.model")
 
 #%%
 #to find the vector of a document which is not in training data

@@ -1,7 +1,11 @@
+#%% [markdown]
+# # Document Embedding (Doc2Vec)
+
 #%%
+# Load Data
 import pandas as pd
 
-df = pd.read_csv('./dataset/chatbot-articles.csv', error_bad_lines=False)
+df = pd.read_csv('./functions/models/dataset/chatbot-articles.csv', error_bad_lines=False)
 data_text = df[['abstract']].dropna()
 data_tags = df[['title']]
 data_text['index'] = data_text.index
@@ -88,5 +92,5 @@ for epoch in range(max_epochs):
     # fix the learning rate, no decay
     model.min_alpha = model.alpha
 
-model.save("./models/d2v/d2v.model")
+model.save("./functions/src/artifacts/d2v/d2v.model")
 print("Model Saved")
