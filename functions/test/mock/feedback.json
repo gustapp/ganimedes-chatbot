@@ -1,0 +1,35 @@
+{
+    "responseId": "2f553ea8-517d-4dc5-94f1-689947a33c31-d5ae01f3",
+    "queryResult": {
+      "queryText": "5",
+      "parameters": {
+        "Feedback": 5,
+        "Persuasion": 5,
+        "Engagement": 5,
+        "Transparency": 5,
+        "Trust": 5,
+        "Effectiveness": 5
+      },
+      "allRequiredParamsPresent": true,
+      "fulfillmentText": "Valeu, até a próxima!",
+      "fulfillmentMessages": [
+        {
+          "text": {
+            "text": [
+              "Valeu, até a próxima!"
+            ]
+          }
+        }
+      ],
+      "intent": {
+        "name": "projects/ganimedes-d9ecd/agent/intents/8b4c9dcf-93a3-4fb5-92db-2628107da174",
+        "displayName": "Feedback",
+        "endInteraction": true
+      },
+      "intentDetectionConfidence": 1,
+      "diagnosticInfo": {
+        "end_conversation": true
+      },
+      "languageCode": "pt-br"
+    }
+  }

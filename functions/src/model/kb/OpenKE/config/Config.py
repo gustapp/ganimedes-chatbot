@@ -52,8 +52,8 @@ class Config(object):
 		r'''
 		import essential files and set essential interfaces for link prediction
 		'''
-		self.lib.importTestFiles()
-		self.lib.importTypeFiles()
+		# self.lib.importTestFiles()
+		# self.lib.importTypeFiles()
 		self.test_h = np.zeros(self.lib.getEntityTotal(), dtype = np.int64)
 		self.test_t = np.zeros(self.lib.getEntityTotal(), dtype = np.int64)
 		self.test_r = np.zeros(self.lib.getEntityTotal(), dtype = np.int64)
@@ -398,7 +398,7 @@ class Config(object):
 		test_r = np.array([r] * self.entTotal)
 		test_t = np.array([t] * self.entTotal)
 		res = self.test_step(test_h, test_t, test_r).reshape(-1).argsort()[:k]
-		print(res)
+		# print(res)
 		return res
 
 	def predict_tail_entity(self, h, r, k):
@@ -419,7 +419,7 @@ class Config(object):
 		test_r = np.array([r] * self.entTotal)
 		test_t = np.array(range(self.entTotal))
 		res = self.test_step(test_h, test_t, test_r).reshape(-1).argsort()[:k]
-		print(res)
+		# print(res)
 		return res
 
 	def predict_relation(self, h, t, k):

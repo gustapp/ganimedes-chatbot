@@ -47,15 +47,42 @@ def class_datetime_constraint(course_ref, weekdays, start_time, end_time, da_hel
     
     return False
 
-def get_explanation(params, db, context):
-    theme_raw = context[0]['parameters']['theme']
+def get_explanation(params, db):
+    theme_raw = params['outputContexts'][0]['parameters']['theme']
     theme = format_entity(theme_raw)
 
-    course = params['Course'].lower()
+    courses = [x.lower() for x in params['Course']]
 
-    reasons = explain_instance(course, 'subject', theme)
+    reasons = explain_instance(theme, 'subject', courses)
 
-    return 'Recomendo a disciplina {}, pois {}'.format(course, ', '.join(reasons[:3]))
+    return reasons # (DEBUG)
+
+    if len(reasons) == 0: # Explanations not found 
+        return "Desculpe, não sei explicar essa recomendação em particular."
+
+    explanation_text = ""
+    for reason in reasons:
+        list.reverse(reason[0])
+        path = reason[0]
+        expls = reason[1]
+        # Pattern 1
+        if path == [3,-3,-1]:
+            for expl in expls:
+                expl = [x.replace('categoria:', '').replace('category:', '').replace('_', ' ') for x in expl]
+                explanation_text += " {} é sobre {} e tanto {} como {} são temas de {}.".format(expl[3].upper(), expl[2], expl[0], expl[2], expl[1])
+        # Pattern 2
+        elif path == [-1,-2, 2]:
+            for expl in expls:
+                expl = [x.replace('categoria:', '').replace('category:', '').replace('_', ' ') for x in expl]
+                explanation_text += " {} é sobre {} e tanto {} como {} são oferecidas pelo docente {}.".format(expl[3].upper(), expl[2], expl[0], expl[2], expl[1])
+        else:
+            raise Exception("Oops")
+
+
+    return 'Recomendo a disciplina {}, pois {}'.format(courses, explanation_text)
+
+    # return 'Recomendo a disciplina {}, pois {} é um tópico de {} assim como {}, que é um assunto da disciplina'.format(course, reasons[0][1][0][0], reasons[0][1][0][1], reasons[0][1][0][2], reasons[0][1][0][3])
+    # return 'Recomendo a disciplina {}, pois {} é sobre {}'.format(course, theme_raw, ', '.join([x.split(':')[-1] for x in reasons[:3]]))
 
 def get_course_recommendation(params, db):
 
@@ -73,6 +100,8 @@ def get_course_recommendation(params, db):
         end_time = params['time_period']['endTime'][11:-9]
 
     courses = rank_content(theme) # KGE link prediction 
+
+    return courses # (DEBUG)
 
     da_helper = FirestoreHelper(db) # data access helper
 

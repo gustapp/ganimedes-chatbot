@@ -1,0 +1,84 @@
+{
+    "responseId": "ec40c1ca-6659-4b64-877e-a7183b55d089-36cd004f",
+    "queryResult": {
+      "queryText": "porquê ?",
+      "action": "GetCourseSuggestion.GetCourseSuggestion-custom",
+      "parameters": {
+        "Course": ""
+      },
+      "allRequiredParamsPresent": true,
+      "fulfillmentMessages": [
+        {
+          "text": {
+            "text": [
+              ""
+            ]
+          }
+        }
+      ],
+      "outputContexts": [
+        {
+          "name": "projects/ganimedes-d9ecd/agent/sessions/0a6c84ef-0692-69b8-b3af-67ba85be8f10/contexts/theme",
+          "lifespanCount": 4,
+          "parameters": {
+            "theme": "aprendizado de máquina",
+            "theme.original": "aprendizado de máquina",
+            "suggestion_number": 2,
+            "suggestion_number.original": "duas",
+            "teachers": [
+              "indiferente"
+            ],
+            "teachers.original": [
+              "não"
+            ],
+            "weekdays": [
+              "indiferente"
+            ],
+            "weekdays.original": [
+              "não"
+            ],
+            "time_period": "",
+            "time_period.original": "",
+            "Course": "",
+            "Course.original": ""
+          }
+        },
+        {
+          "name": "projects/ganimedes-d9ecd/agent/sessions/0a6c84ef-0692-69b8-b3af-67ba85be8f10/contexts/getcoursesuggestion-followup",
+          "lifespanCount": 1,
+          "parameters": {
+            "theme": "aprendizado de máquina",
+            "theme.original": "aprendizado de máquina",
+            "suggestion_number": 2,
+            "suggestion_number.original": "duas",
+            "teachers": [
+              "indiferente"
+            ],
+            "teachers.original": [
+              "não"
+            ],
+            "weekdays": [
+              "indiferente"
+            ],
+            "weekdays.original": [
+              "não"
+            ],
+            "time_period": "",
+            "time_period.original": "",
+            "Course": "",
+            "Course.original": ""
+          }
+        }
+      ],
+      "intent": {
+        "name": "projects/ganimedes-d9ecd/agent/intents/cc21f19d-6012-4bde-8b49-8cb106c003b7",
+        "displayName": "GetCourseSuggestion - explain"
+      },
+      "intentDetectionConfidence": 1,
+      "languageCode": "pt-br"
+    },
+    "originalDetectIntentRequest": {
+      "payload": {}
+    },
+    "session": "projects/ganimedes-d9ecd/agent/sessions/0a6c84ef-0692-69b8-b3af-67ba85be8f10"
+  }

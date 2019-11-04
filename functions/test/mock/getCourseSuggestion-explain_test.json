@@ -1,0 +1,90 @@
+{
+    "responseId": "b8ef1830-a605-4b28-aca9-ea549a52d902-d5ae01f3",
+    "queryResult": {
+      "queryText": "Porque PMR3508 é sobre aprendizado de máquina ?",
+      "action": "GetCourseSuggestion.GetCourseSuggestion-custom",
+      "parameters": {
+        "Course": ["PMR3508"]
+      },
+      "allRequiredParamsPresent": true,
+      "fulfillmentMessages": [
+        {
+          "text": {
+            "text": [
+              ""
+            ]
+          }
+        }
+      ],
+      "outputContexts": [
+        {
+          "name": "projects/ganimedes-d9ecd/agent/sessions/ac0f4504-6fbe-a62e-f46b-d86b3349f544/contexts/theme",
+          "lifespanCount": 3,
+          "parameters": {
+            "suggestion_number": "1",
+            "theme": "aprendizado de máquina",
+            "theme.original": "aprendizado de máquina",
+            "teachers": [
+              "indiferente"
+            ],
+            "teachers.original": [
+              "não"
+            ],
+            "weekdays": [
+              "indiferente"
+            ],
+            "weekdays.original": [
+              "não"
+            ],
+            "time_period": "",
+            "time_period.original": "",
+            "suggestion_number.original": "",
+            "Course": "PMR3508",
+            "Course.original": "PMR3508"
+          }
+        },
+        {
+          "name": "projects/ganimedes-d9ecd/agent/sessions/ac0f4504-6fbe-a62e-f46b-d86b3349f544/contexts/defaultfallbackintent-followup",
+          "parameters": {
+            "Course": "PMR3508",
+            "Course.original": "PMR3508"
+          }
+        },
+        {
+          "name": "projects/ganimedes-d9ecd/agent/sessions/ac0f4504-6fbe-a62e-f46b-d86b3349f544/contexts/getcoursesuggestion-followup",
+          "parameters": {
+            "suggestion_number": "1",
+            "theme": "aprendizado de máquina",
+            "theme.original": "aprendizado de máquina",
+            "teachers": [
+              "indiferente"
+            ],
+            "teachers.original": [
+              "não"
+            ],
+            "weekdays": [
+              "indiferente"
+            ],
+            "weekdays.original": [
+              "não"
+            ],
+            "time_period": "",
+            "time_period.original": "",
+            "suggestion_number.original": "",
+            "Course": "PMR3508",
+            "Course.original": "PMR3508"
+          }
+        }
+      ],
+      "intent": {
+        "name": "projects/ganimedes-d9ecd/agent/intents/cc21f19d-6012-4bde-8b49-8cb106c003b7",
+        "displayName": "GetCourseSuggestion - explain"
+      },
+      "intentDetectionConfidence": 1,
+      "languageCode": "pt-br"
+    },
+    "originalDetectIntentRequest": {
+      "payload": {}
+    },
+    "session": "projects/ganimedes-d9ecd/agent/sessions/ac0f4504-6fbe-a62e-f46b-d86b3349f544"
+  }

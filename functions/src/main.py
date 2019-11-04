@@ -39,8 +39,11 @@ def get_dialogflow_fulfillment(request, agent=agent):
 
     intent = query_result['intent']['displayName']
     params = query_result['parameters']
-    context = query_result['outputContexts']
+    context = None
+    if 'outputContexts' in query_result:
+        context = query_result['outputContexts']
+    params['outputContexts'] = context
 
-    res = agent.handle_intent(intent, params, context)
+    res = agent.handle_intent(intent, params)
 
     return res

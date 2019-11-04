@@ -2,6 +2,7 @@ from util.decorators import fault_message, response
 from handlers.jupiterweb import get_course_info, get_course_schedule, get_course_requirements, get_course_workload, get_course_teachers, get_course_credits
 from handlers.dbpedia import get_concept_desc
 from handlers.recommender import get_course_recommendation, get_explanation
+from handlers.feedback import store_evaluation
 
 class IntentHandler(object):
     """ Facade class that wraps all handlers.
@@ -16,9 +17,9 @@ class IntentHandler(object):
     def uninplemented_feature(self, x, y):
         return "Desculpe, ainda não consigo fazer isso :/"
 
-    @response
-    @fault_message
-    def handle_intent(self, intent, params, context):
+    # @response
+    # @fault_message
+    def handle_intent(self, intent, params):
         """Switch intent to correspondent handler function.
         Args:
             intent (string): Dialogflow intent id.
@@ -35,8 +36,9 @@ class IntentHandler(object):
             'GetCourseSchedule': get_course_schedule,
             'GetConceptDescription': get_concept_desc,
             'GetCourseSuggestion': get_course_recommendation,
-            'GetCourseSuggestion - explain': get_explanation
-        }.get(intent, self.uninplemented_feature)(params, self.db, context)
+            'GetCourseSuggestion - explain': get_explanation,
+            'Feedback': store_evaluation
+        }.get(intent, self.uninplemented_feature)(params, self.db)
     
     
 

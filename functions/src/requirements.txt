@@ -4,3 +4,7 @@ gensim==3.7.1
 nltk==3.3
 firebase_admin
 google
+tensorflow
+pandas
+sklearn
+fuzzywuzzy
