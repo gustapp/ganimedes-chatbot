@@ -15,7 +15,7 @@ project_id = 'ganimedes-d9ecd'
 # })
 
 # (DEBUG ONLY)
-cred = credentials.Certificate('./auth/ganimedes-d9ecd-d860c9b7caa9.json')
+cred = credentials.Certificate('./auth/ganimedes-d9ecd-firebase-adminsdk-20lep-4acb06d0ad.json')
 firebase_admin.initialize_app(cred)
 
 # Retrieve Firestore
@@ -39,8 +39,10 @@ def get_dialogflow_fulfillment(request, agent=agent):
 
     intent = query_result['intent']['displayName']
     params = query_result['parameters']
-    context = query_result['outputContexts']
+    # context = {}
+    # if 'outputContexts' in query_result:
+    #     context = query_result['outputContexts']
 
-    res = agent.handle_intent(intent, params, context)
+    res = agent.handle_intent(intent, params)
 
     return res

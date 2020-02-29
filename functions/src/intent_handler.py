@@ -18,7 +18,7 @@ class IntentHandler(object):
 
     @response
     @fault_message
-    def handle_intent(self, intent, params, context):
+    def handle_intent(self, intent, params):
         """Switch intent to correspondent handler function.
         Args:
             intent (string): Dialogflow intent id.
@@ -36,7 +36,7 @@ class IntentHandler(object):
             'GetConceptDescription': get_concept_desc,
             'GetCourseSuggestion': get_course_recommendation,
             'GetCourseSuggestion - explain': get_explanation
-        }.get(intent, self.uninplemented_feature)(params, self.db, context)
+        }.get(intent, self.uninplemented_feature)(params, self.db)
     
     
 

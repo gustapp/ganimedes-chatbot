@@ -6,6 +6,38 @@
 ## **Get Started**
 To get started with `Ganimedes`, clone this repository locally and install the following prerequisites:
 
+1. Create conda environment
+
+    > `conda create --name ganimedes --clone base`
+    > `conda activate ganimedes`
+
+2. Install dependencies
+
+    > `cd functions/src`
+    > `pip install -r requirements.txt`
+
+3. Compile OpenKE
+
+    > `cd model/kb/OpenKE`
+    > `mkdir release`
+    > `bash make.sh`
+
+4. Train Knowledge Embedding
+
+    > `mkdir -p ../artifacts/kge ../artifacts/dicts`
+    > `python example_train_transe.py`
+    > `python ../../../../../scripts/create_dicts.py`
+
+5. Firebase Authentication Set-up
+    
+    - Follow the procedure available at (https://firebase.google.com/docs/admin/setup)
+    - Make a new directory `auth` and paste the json file
+
+6. Start Local Server (DEBUG mode)
+
+    - Launch `Python: Flask` on `main_emulate.py` file
+        . It should start the server on port 5000
+
 ### **Pre-requesites**
 
 * [NodeJS](https://nodejs.org/en/) + [NPM](https://www.npmjs.com/)
@@ -65,3 +97,12 @@ To run the test, execute the previous section steps from **1** to **4**. After t
 > `npm run test`
 
 curl -X POST -H "Content-Type: application/json" -d @./functions/test/mock/getConceptDescription.json http://localhost:5000/dialogflow-fulfillment
+
+
+### **TODOS**
+
+- Create make.sh
+- Fix get explanation and context
+- Move tests to pytest (deco supertest .ts)
+
+- Rethink deploy
