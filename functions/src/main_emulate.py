@@ -13,6 +13,14 @@ if __name__ == "main_emulate":
 
     @app.route('/dialogflow-fulfillment', methods = ['GET', 'POST'])
     def dialogflow_fulfillment():
-        return get_dialogflow_fulfillment(request)
+        return get_dialogflow_fulfillment(request, '')
+
+    @app.route('/dialogflow-fulfillment-embedding', methods = ['GET', 'POST'])
+    def dialogflow_fulfillment_embedding():
+        return get_dialogflow_fulfillment(request, 'PRED')
+
+    @app.route('/dialogflow-fulfillment-graph', methods = ['GET', 'POST'])
+    def dialogflow_fulfillment_graph():
+        return get_dialogflow_fulfillment(request, 'TRUE')
 
     app.run('localhost', 5000, debug=True)

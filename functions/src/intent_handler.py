@@ -2,6 +2,7 @@ from util.decorators import fault_message, response
 from handlers.jupiterweb import get_course_info, get_course_schedule, get_course_requirements, get_course_workload, get_course_teachers, get_course_credits
 from handlers.dbpedia import get_concept_desc
 from handlers.recommender import get_course_recommendation, get_explanation
+from handlers.feedback import store_evaluation
 
 class IntentHandler(object):
     """ Facade class that wraps all handlers.
@@ -35,8 +36,7 @@ class IntentHandler(object):
             'GetCourseSchedule': get_course_schedule,
             'GetConceptDescription': get_concept_desc,
             'GetCourseSuggestion': get_course_recommendation,
-            'GetCourseSuggestion - explain': get_explanation
+            'GetCourseSuggestion - explain': get_explanation,
+            'Feedback': store_evaluation
         }.get(intent, self.uninplemented_feature)(params, self.db)
     
-    
-
