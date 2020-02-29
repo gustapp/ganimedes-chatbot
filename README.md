@@ -9,29 +9,36 @@ To get started with `Ganimedes`, clone this repository locally and install the f
 1. Create conda environment
 
     > `conda create --name ganimedes --clone base`
+    
     > `conda activate ganimedes`
 
 2. Install dependencies
 
     > `cd functions/src`
+    
     > `pip install -r requirements.txt`
 
 3. Compile OpenKE
 
     > `cd model/kb/OpenKE`
+    
     > `mkdir release`
+    
     > `bash make.sh`
 
 4. Train Knowledge Embedding
 
     > `mkdir -p ../artifacts/kge ../artifacts/dicts`
+    
     > `python example_train_transe.py`
+    
     > `python ../../../../../scripts/create_dicts.py`
 
 5. Firebase Authentication Set-up
     
     - Follow the procedure available at (https://firebase.google.com/docs/admin/setup)
     - Make a new directory `auth` and paste the json file
+    - In the file `main.py`, change the name of the json authentication file to reflect this change
 
 6. Start Local Server (DEBUG mode)
 
@@ -40,53 +47,14 @@ To get started with `Ganimedes`, clone this repository locally and install the f
 
 ### **Pre-requesites**
 
-* [NodeJS](https://nodejs.org/en/) + [NPM](https://www.npmjs.com/)
+* [VSCode](https://code.visualstudio.com/) and install python extension
 
-    > `apt install nodejs npm` 
-
-* [Google Cloud Functions Emulator](https://cloud.google.com/functions/docs/emulator)
-
-    > `npm install -g @google-cloud/functions-emulator`
-
-* [Firebase Tools](https://firebase.google.com/docs/cli/?hl=en-us)
-
-    > `npm install -g firebase-tools`
-
-* [VSCode](https://code.visualstudio.com/)
+* [Conda](https://docs.conda.io/en/latest/miniconda.html)
 
 * [Dialogflow Project Setup](https://dialogflow.com/)
 
 * [Firebase Project Setup](https://firebase.google.com/)
 
-### **Debug locally**
-
-1. Install all project dependencies *(functions folder)*
-
-    > `npm install`
-
-2. Build project *(functions folder)*
-
-    > `npm run build`
-
-3. Start functions
-
-    > `functions start`
-
-4. Deploy functions
-
-    > `functions deploy dialogflowFirebaseFulfillment --trigger-http`
-
-5. Inspect functions
-
-    > `functions inspect dialogflowFirebaseFulfillment`
-
-6. Debug in VSCode
-
-    Launch `Cloud functions debug` configurations at **launch.json**. Now, just debug the code!
-
-7. Realize a call (*using mock file*)
-
-    > `functions call dialogflowFirebaseFulfillment --f='./test/mock/getCourseInfo.json'`
 
 ### **Run Tests**
 
