@@ -15,7 +15,7 @@ project_id = 'ganimedes-d9ecd'
 # })
 
 # (DEBUG ONLY)
-cred = credentials.Certificate('./auth/ganimedes-d9ecd-firebase-adminsdk-20lep-4acb06d0ad.json')
+cred = credentials.Certificate('./auth/ganimedes-d9ecd-firebase-adminsdk-20lep-4018e1d18f.json')
 firebase_admin.initialize_app(cred)
 
 # Retrieve Firestore
