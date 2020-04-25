@@ -49,27 +49,6 @@ for entity_name in entity2id.keys():
         entities.append(entity_name.replace('_', ' ').replace('category:', '').replace('categoria:', ''))
         entities_format.append(entity_name)
 
-# # Load Graph
-# with open(relation2id_pkl, "rb") as input_file:
-#    relation2id = pickle.load(input_file)
-
-# """ ***Experiment*** """
-# id2relation = ['subject', 'involved', 'broader']
-# graph_df = pd.read_csv('./functions/src/model/kb/OpenKE/benchmarks/USPedia/train2id.txt', sep='\t', header=None, skiprows=[0], names=['head', 'tail', 'relation'])
-# # graph_df['head'] = graph_df['head'].apply(lambda x: id2entity[x])
-# # graph_df['tail'] = graph_df['tail'].apply(lambda x: id2entity[x])
-# # graph_df['rel'] = graph_df['rel'].apply(lambda x: id2relation[x])
-
-# relations = [(x+1) for x in [x['id'] for x in relation2id.values()]]
-# relations_inv = [-(x+1) for x in [x['id'] for x in relation2id.values()]]
-# #entity_dict = dict(zip(id2entity.keys(), [[] for i in range(len(id2entity.keys()))]))
-# graph_dict = dict(zip(relations + relations_inv, [dict(zip(id2entity.keys(), [[] for i in range(len(id2entity.keys()))])) for i in range(len(relations + relations_inv))]))
-
-# for index, triple in graph_df.iterrows():
-#     head, tail, relation = triple
-#     graph_dict[relation+1][head].append(tail) # direct
-#     graph_dict[-(relation+1)][tail].append(head) # inverse
-
 class KnowledgeGraph(object):
     def __init__(self, graph_dict):
         self.graph = graph_dict
@@ -82,12 +61,6 @@ class KnowledgeGraph(object):
 
 with open(graph_pkl, "rb") as input_file:
    graph_con = pickle.load(input_file)
-
-# graph_con = KnowledgeGraph(graph_dict)
-# # graph_con = KnowledgeGraph({})
-
-# with open('./graph_con.pkl', 'wb') as output:  # Overwrites any existing file.
-#     pickle.dump(graph_con, output, pickle.HIGHEST_PROTOCOL)
 
 class InferenceEngine(object):
     """ Knowledge Embedding predictor.
@@ -127,14 +100,7 @@ class InferenceEngine(object):
 ranker_kge = InferenceEngine(con, entity2id, id2entity, relation2id, entities, entities_format)
 
 def rank_content(theme, ranker=ranker_kge):
-    """ Logic behind the course ranking by theme. 
-    """
-    # concepts_cand = ranker_kge.entity_name_recognition(theme)
-
-    # best_candidates = []
-    # for candidate, score in concepts_cand:
-    #     if score > 90:
-    #         best_candidates.append(candidate)
+    """ Logic behind the course ranking by theme. """
 
     best_candidates = [theme]
 
@@ -152,7 +118,6 @@ def embd_graph_walk(node, targets, path_ref, branch_factor, k, visited_nodes_ref
     visited_nodes.append(node) # add actual node to visited list
     path = [x for x in path_ref]
     if len(path) == 0:
-        # if node == target: # solution
         if node in targets: # solution
             k[targets.index(node)][0] -= 1
         return [[node, time()]] # elapsed time to find explanation
@@ -169,11 +134,9 @@ def embd_graph_walk(node, targets, path_ref, branch_factor, k, visited_nodes_ref
     merged = []
     for edge in edges:
         if edge not in visited_nodes and (edge not in targets or len(path) == 0): # avoid cycles
-        # if edge != node:
             partial_paths = embd_graph_walk(edge, targets, path, branch_factor, k, visited_nodes, con=con)
             for partial_path in partial_paths:
                 merged.append([node] + partial_path)
-        # if k[0] == 0: # cutoff (number of explanations is satisfied)
         if all([x[0] == 0 for x in k]): # cutoff (number of explanations is satisfied)
             return merged
     return merged
@@ -189,7 +152,6 @@ def explain_instance(head, r, response, algo_type, con=con):
     con.restore_tensorflow()
 
     reasons = []
-    # for algo in ['TRUE']:
     for algo in [algo_type]:
         start_time = time()
         # Search for crossover interactions
@@ -207,7 +169,6 @@ def explain_instance(head, r, response, algo_type, con=con):
                 if any([x for x in res_id if x in path]):
                     elapsed_time = path.pop() - start_time
                     expl_res.append((elapsed_time, [id2entity[y]['entity'] for y in path]))
-            #expl_res = [[id2entity[y]['entity'] for y in x] for x in paths if res_id in x]
             if len(expl_res) == 0: # empty
                 continue
             expl_inst.append((expl_path, expl_res))

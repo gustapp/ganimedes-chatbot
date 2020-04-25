@@ -21,7 +21,7 @@ def store_evaluation(params, db):
     # Store feedback on Firestore
     if algo_type == "PRED":
         db.collection('avaliações').document().set(scores)
-        return "Valeu! até a próxima!"
     elif algo_type == "TRUE":
         db.collection('avaliações-graph').document().set(scores)
-        return "Valeu! até a próxima!"
+
+    return "Valeu! até a próxima!"

@@ -1,4 +1,3 @@
-import { helloWorld } from "../src/index";
 import {} from "ts-jest";
 
 import * as chai from "chai";

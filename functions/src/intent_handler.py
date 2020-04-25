@@ -5,8 +5,7 @@ from handlers.recommender import get_course_recommendation, get_explanation
 from handlers.feedback import store_evaluation
 
 class IntentHandler(object):
-    """ Facade class that wraps all handlers.
-    """
+    """ Facade class that wraps all handlers."""
     def __init__(self, db):
         """ (Constructor) 
             Args:
@@ -27,7 +26,8 @@ class IntentHandler(object):
         Return:
             Fulfillment answer text.
         """
-        return {
+        default_intent = self.uninplemented_feature
+        intents = {
             'GetCourseInfo': get_course_info,
             'GetCourseRequirements': get_course_requirements,
             'GetCourseWorkload': get_course_workload,
@@ -38,5 +38,7 @@ class IntentHandler(object):
             'GetCourseSuggestion': get_course_recommendation,
             'GetCourseSuggestion - explain': get_explanation,
             'Feedback': store_evaluation
-        }.get(intent, self.uninplemented_feature)(params, self.db)
+        }
+        intent_handler = intents.get(intent, default_intent)
+        return intent_handler(params, self.db)
     
