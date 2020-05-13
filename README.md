@@ -1,5 +1,5 @@
 # **Ganimedes Bot**
-## Jupiter conversational recommender system
+## Conversational recommender system
 
 [logo]: ./public/ganimedes-logo.png
 
@@ -16,7 +16,7 @@ To get started with `Ganimedes`, clone this repository locally and install the f
 
     > `cd functions/src`
     
-    > `pip install -r requirements.txt`
+    > `pip3 install -r requirements.txt`
 
 3. Compile OpenKE
 
@@ -30,9 +30,9 @@ To get started with `Ganimedes`, clone this repository locally and install the f
 
     > `mkdir -p ../artifacts/kge ../artifacts/dicts`
     
-    > `python example_train_transe.py`
+    > `python3 lastfm_transe.py`
     
-    > `python ../../../../../scripts/create_dicts.py`
+    > `python3 ../../../../../scripts/create_dicts.py`
 
 5. Firebase Authentication Set-up
     
