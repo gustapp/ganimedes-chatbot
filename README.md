@@ -58,14 +58,11 @@ To get started with `Ganimedes`, clone this repository locally and install the f
 
 ### **Run Tests**
 
-Currently, this project uses **Jest** to run its *Unit Tests* for each cloud functions. The tests consists basically on mocked calls (*mock folder*).
+Currently, the tests consists basically on mocked calls (*mock folder*).
 
-To run the test, execute the previous section steps from **1** to **4**. After that, execute the following at *functions folder*:
+To run a test, execute the previous section steps from **1** to **4**. After that, execute the following command with the mocked call you want to simulate.
 
-> `npm run test`
-
-curl -X POST -H "Content-Type: application/json" -d @./functions/test/mock/getConceptDescription.json http://localhost:5000/dialogflow-fulfillment
-
+`curl -X POST -H "Content-Type: application/json" -d @./functions/test/mock/getConceptDescription.json http://localhost:5000/dialogflow-fulfillment`
 
 ### **TODOS**
 
