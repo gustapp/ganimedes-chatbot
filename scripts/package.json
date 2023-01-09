@@ -9,6 +9,6 @@
   "author": "gustapp",
   "dependencies": {
     "firebase": "^5.7.3",
-    "firebase-admin": "^8.6.0"
+    "firebase-admin": "^11.4.1"
   }
 }
